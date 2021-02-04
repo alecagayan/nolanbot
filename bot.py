@@ -24,16 +24,24 @@ us_graph = os.path.join(config.botdir, 'plot-nation.png')
 owm = pyowm.OWM(config.owm_key)
 
 logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
-intents = discord.Intents(members=True)
-client = Bot(description=config.des, command_prefix=config.pref, intents = intents)
+intents = discord.Intents.default()
+intents.members = True
+client = Bot(description=config.des, command_prefix=config.pref, intents=intents)
 
 newUserMessage = 'testing!!!'
 
 def file_age_in_seconds(pathname):
     return os.path.getmtime(pathname)
 
+client.load_extension("cogs.welcomer")
+
 # Start bot and print status to console
+
 @client.event
 async def on_ready():
     print("Bot online!\n")
@@ -176,6 +184,7 @@ async def weather(ctx, a, t = None):
     embed.add_field(name="Humidity :droplet:", value=str(weather.humidity) + '%', inline=True) #humidity
     embed.add_field(name="Visibility :eye:", value=str(round(weather.visibility_distance/1609.344, 1)) + ' miles', inline=True) #visibility
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+    await ctx.send(embed=embed)
 
 client.run(config.bbtoken)
 
