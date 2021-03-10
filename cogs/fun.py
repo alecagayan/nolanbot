@@ -4,11 +4,21 @@ import json
 import random
 import urllib.request
 import json
+import sr_api
 from discord.ext import commands
 
 class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.command()
+    @commands.guild_only()
+    async def vote(self, ctx, *, msg):
+        """ Quick y/n poll """
+
+        await ctx.message.add_reaction("👍")
+        await ctx.message.add_reaction("👎")
+
 
     @commands.command()
     @commands.guild_only()
@@ -24,15 +34,20 @@ class Fun(commands.Cog):
         embed.add_field(name = 'Full lyrics: ', value=response.link, inline=False)
         await ctx.send(embed = embed)
 
-
     @commands.command()
     @commands.guild_only()
     async def lyrics(self, ctx, *, title):
+        srapi = sr_api.Client()
+        response = await srapi.get_lyrics(title)
+        lyric = response.lyrics
+        finallyric = (lyric[:1020] + '...') if len(lyric) > 1020 else lyric
 
-        data = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCL6JmiMXKoXS6bpP1D3bk8g&key=").read()
-        subs = json.loads(data)["items"][0]["statistics"]["subscriberCount"]
-
-        await ctx.send(name + " has " + "{:,d}".format(int(subs)) + " subscribers!🎉")
+        embedColor = random.randint(0, 0xffffff)
+        embed = discord.Embed(title="Lyrics of " + response.title + " by " + response.author + ":", color=embedColor)
+        embed.set_thumbnail(url=response.thumbnail)
+        embed.add_field(name = response.title, value=finallyric, inline=True)
+        embed.add_field(name = 'Full lyrics: ', value=response.link, inline=False)
+        await ctx.send(embed = embed)
 
     @commands.guild_only()
     @commands.command(aliases=["servericon"])
