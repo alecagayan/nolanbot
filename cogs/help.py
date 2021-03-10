@@ -80,7 +80,7 @@ class Help(commands.Cog):
 
         while True:
             try:
-                reaction, user = await client.wait_for("reaction_add", timeout=60, check=check)
+                reaction, user = await self.ctx.wait_for("reaction_add", timeout=60, check=check)
                 # waiting for a reaction to be added - times out after x seconds, 60 in this
                 # example
 

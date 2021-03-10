@@ -75,21 +75,6 @@ class Fun(commands.Cog):
             return await ctx.send("This server does not have a avatar...")
         await ctx.send(ctx.guild.icon_url_as(size=1024))
 
-    @commands.command(aliases=['game', 'presence'])
-    async def setgame(self, ctx, *args):
-    #Sets the 'Playing' status.
-        if(ctx.author.id == 401063536618373121):
-            try:
-                setgame = ' '.join(args)
-                await client.change_presence(status=discord.Status.online, activity=discord.Game(setgame))
-                await ctx.send(":ballot_box_with_check: Game name set to: `" + setgame + "`")
-                print("Game set to: `" + setgame + "`")
-            except Exception as e:
-                print('erroreeee: ' + e)
-            return
-        else:
-            await ctx.send(config.err_mesg_permission)
-
     @commands.command()
     async def hug(self, ctx, *, member: discord.Member = None):
         """Hug someone on the server <3"""
