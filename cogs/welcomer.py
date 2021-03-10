@@ -8,7 +8,7 @@ class Welcomer(commands.Cog):
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
 
-        if(any(role.name == 'GiGØ' for role in after.roles) and not any(role.name == 'alce' for role in after.roles) and after.roles > before.roles):
+        if((any(role.name == 'Youtube Member' for role in after.roles) and any(role.name == 'Youtube Member: Donut Underground' for role in after.roles)) and len(after.roles) > len(before.roles)):
             guild = before.guild
             print('member!')
             if guild.system_channel is not None:
