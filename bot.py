@@ -97,7 +97,7 @@ async def covid(ctx, type = None, *, location = None):
         await ctx.send(file=discord.File(state_graph))
 
 
-    if(type == "county"):
+    elif(type == "county"):
 
         if (not os.path.exists(filename_county) or file_age_in_seconds(filename_county) > 3600):
             urllib.request.urlretrieve("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv", filename_county)
