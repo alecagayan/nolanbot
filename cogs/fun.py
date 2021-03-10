@@ -7,9 +7,16 @@ import json
 import sr_api
 from discord.ext import commands
 
+def date(target, clock=True):
+    """ Clock format using datetime.strftime() """
+    if not clock:
+        return target.strftime("%d %B %Y")
+    return target.strftime("%d %B %Y, %H:%M")
+
 class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
     
     @commands.command()
     @commands.guild_only()
@@ -18,6 +25,17 @@ class Fun(commands.Cog):
 
         await ctx.message.add_reaction("👍")
         await ctx.message.add_reaction("👎")
+
+    @commands.command()
+    @commands.guild_only()
+    async def joined(self, ctx, *, user: discord.Member = None):
+        """ Check when a user joined the current server """
+        user = user or ctx.author
+
+        embed = discord.Embed(color=user.top_role.colour.value)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.description = f'**{user}** joined **{ctx.guild.name}**\n{date(user.joined_at)}'
+        await ctx.send(embed=embed)
 
 
     @commands.command()
