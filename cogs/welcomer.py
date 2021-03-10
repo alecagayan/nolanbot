@@ -15,14 +15,14 @@ class Welcomer(commands.Cog):
         if((any(role.name == 'Youtube Member' for role in after.roles) and not any(role.name == 'Youtube Member: Donut Underground' for role in after.roles)) and (len(after.roles) > len(before.roles))):
             channel = self.bot.get_channel(741398310228721844)
             guild = before.guild
-            print('member! ' + before)
+            print('member! ' + before.display_name)
 
             to_send = 'Welcome to the underground, {0.mention}.'.format(before, guild)
             await channel.send(to_send)
         elif((any(role.name == 'Youtube Member: Donut Underground' for role in after.roles) and not any(role.name == 'Youtube Member' for role in after.roles)) and (len(after.roles) > len(before.roles))):
             channel = self.bot.get_channel(741398310228721844)
             guild = before.guild
-            print('member!')
+            print('member! ' + before.display_name)
 
             to_send = 'Welcome to the underground, {0.mention}.'.format(before, guild)
             await channel.send(to_send)
