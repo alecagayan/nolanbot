@@ -8,6 +8,8 @@ class Welcomer(commands.Cog):
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
 
+        print('update: ' + after.display_name)
+
         print(before.roles)
         print(after.roles)
         #if((any(role.name == 'Youtube Member' for role in after.roles) and any(role.name == 'Youtube Member: Donut Underground' for role in after.roles) and not any(role.name == 'Boost Creeps' for role in after.roles)) and len(after.roles) > len(before.roles)):
@@ -15,14 +17,14 @@ class Welcomer(commands.Cog):
         if((any(role.name == 'Youtube Member' for role in after.roles) and not any(role.name == 'Youtube Member: Donut Underground' for role in after.roles)) and (len(after.roles) > len(before.roles))):
             channel = self.bot.get_channel(741398310228721844)
             guild = before.guild
-            print('member! ' + before.display_name)
+            print('member! ' + after.display_name)
 
             to_send = 'Welcome to the underground, {0.mention}.'.format(before, guild)
             await channel.send(to_send)
         elif((any(role.name == 'Youtube Member: Donut Underground' for role in after.roles) and not any(role.name == 'Youtube Member' for role in after.roles)) and (len(after.roles) > len(before.roles))):
             channel = self.bot.get_channel(741398310228721844)
             guild = before.guild
-            print('member! ' + before.display_name)
+            print('member! ' + after.display_name)
 
             to_send = 'Welcome to the underground, {0.mention}.'.format(before, guild)
             await channel.send(to_send)
