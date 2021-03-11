@@ -145,7 +145,7 @@ async def fancify(ctx, *, text):
 @client.command()
 async def suggest(ctx, *, msg):
     user = client.get_user(401063536618373121)
-    await ctx.send(msg)
+    await user.send(msg)
 
 @client.command()
 async def uptime(ctx):
