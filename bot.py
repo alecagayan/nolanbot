@@ -11,6 +11,7 @@ import urllib
 import urllib.request
 import pandas as pd
 import asyncio
+import time
 import plotly.express as px
 from discord.ext.commands import Bot
 from discord.ext import commands
@@ -20,6 +21,8 @@ filename_county = os.path.join(config.botdir, "us-counties.csv")
 county_graph = os.path.join(config.botdir, 'plot-county.png')
 state_graph = os.path.join(config.botdir, 'plot-state.png')
 us_graph = os.path.join(config.botdir, 'plot-nation.png')
+
+start_time = time.time()
 
 owm = pyowm.OWM(config.owm_key)
 
