@@ -125,7 +125,8 @@ async def fancify(ctx, *, text):
             stripped = (c for c in string if 0 < ord(c) < 127)
             return ''.join(stripped)
 
-@client.command(aliases=["suggestion"])
+
+@client.command()
 async def suggest(ctx, *, msg):
     user = client.get_user(401063536618373121)
     await ctx.send(msg)
