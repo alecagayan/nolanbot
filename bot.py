@@ -202,70 +202,70 @@ async def uptime(ctx):
 #    embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 #    await ctx.send(embed=embed)
 
-    @client.command()
-    async def help(ctx):
-        embedColor = 0xFFD414
-        prefix = '!'
-        message = await ctx.send("Select a page by reacting below!")
-        # getting the message object for editing and reacting
+@client.command()
+async def help(ctx):
+    embedColor = 0xFFD414
+    prefix = '!'
+    message = await ctx.send("Select a page by reacting below!")
+    # getting the message object for editing and reacting
 
-        await message.add_reaction("1️⃣")
-        await message.add_reaction("2️⃣")
-        #await message.add_reaction("3️⃣")
-        #await message.add_reaction("4️⃣")
-        #await message.add_reaction("5️⃣")
-
-
-        embed1 = discord.Embed(title="Help Page 1/2", description="Need help? Look below", color=embedColor)
-        embed1.add_field(name=prefix + "roll", value='Rolls a die', inline=False)
-        embed1.add_field(name=prefix + "vote", value="Makes a quick yes/no poll", inline=False)
-        embed1.add_field(name=prefix + "~~covid <state/county> <name>~~", value="~~Gives coronavirus statistics~~", inline=False)
-        embed1.add_field(name=prefix + "lyrics <song name/artist>", value="Prints song lyrics", inline=False)
-        embed1.add_field(name=prefix + "servericon", value="Returns the server icon", inline=False)
-        embed1.add_field(name=prefix + "quickpoll", value="Creates a quick poll with multiple options", inline=False)
-        embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
-
-        embed2 = discord.Embed(title="Help Page 2/2", description="Need help? Look below!", color=embedColor)
-        embed2.add_field(name=prefix + "weather", value="Insults a user you tag. If nobody is tagged, an insult will be printed", inline=False)
-        embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
-        embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
-        embed2.add_field(name=prefix + "hug", value="Hug anyone in the server!", inline=False)
-        embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+    await message.add_reaction("1️⃣")
+    await message.add_reaction("2️⃣")
+    #await message.add_reaction("3️⃣")
+    #await message.add_reaction("4️⃣")
+    #await message.add_reaction("5️⃣")
 
 
-        def check(reaction, user):
-            #return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
-            return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣"]
+    embed1 = discord.Embed(title="Help Page 1/2", description="Need help? Look below", color=embedColor)
+    embed1.add_field(name=prefix + "roll", value='Rolls a die', inline=False)
+    embed1.add_field(name=prefix + "vote", value="Makes a quick yes/no poll", inline=False)
+    embed1.add_field(name=prefix + "~~covid <state/county> <name>~~", value="~~Gives coronavirus statistics~~", inline=False)
+    embed1.add_field(name=prefix + "lyrics <song name/artist>", value="Prints song lyrics", inline=False)
+    embed1.add_field(name=prefix + "servericon", value="Returns the server icon", inline=False)
+    embed1.add_field(name=prefix + "quickpoll", value="Creates a quick poll with multiple options", inline=False)
+    embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+
+    embed2 = discord.Embed(title="Help Page 2/2", description="Need help? Look below!", color=embedColor)
+    embed2.add_field(name=prefix + "weather", value="Insults a user you tag. If nobody is tagged, an insult will be printed", inline=False)
+    embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
+    embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
+    embed2.add_field(name=prefix + "hug", value="Hug anyone in the server!", inline=False)
+    embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
 
-        while True:
-            try:
-                reaction, user = await ctx.wait_for("reaction_add", timeout=60, check=check)
-                # waiting for a reaction to be added - times out after x seconds, 60 in this
-                # example
+    def check(reaction, user):
+        #return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+        return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣"]
 
-                if str(reaction.emoji) == "1️⃣":
-                    await message.edit(embed=embed1)
-                    await message.remove_reaction(reaction, user)
-                elif str(reaction.emoji) == "2️⃣":
-                    await message.edit(embed=embed2)
-                    await message.remove_reaction(reaction, user)
-                #elif str(reaction.emoji) == "3️⃣":
-                #    await message.edit(embed=embed3)
-                #    await message.remove_reaction(reaction, user)
-                #elif str(reaction.emoji) == "4️⃣":
-                #    await message.edit(embed=embed4)
-                #    await message.remove_reaction(reaction, user)
-                #elif str(reaction.emoji) == "5️⃣":
-                #    await message.edit(embed=embed5)
-                #    await message.remove_reaction(reaction, user)
-                else:
-                    await message.remove_reaction(reaction, user)
-                    # removes reactions if the user tries to go forward on the last page or
-                    # backwards on the first page
-            except asyncio.TimeoutError:
-                await message.delete()
-                break
+
+    while True:
+        try:
+            reaction, user = await ctx.wait_for("reaction_add", timeout=60, check=check)
+            # waiting for a reaction to be added - times out after x seconds, 60 in this
+            # example
+
+            if str(reaction.emoji) == "1️⃣":
+                await message.edit(embed=embed1)
+                await message.remove_reaction(reaction, user)
+            elif str(reaction.emoji) == "2️⃣":
+                await message.edit(embed=embed2)
+                await message.remove_reaction(reaction, user)
+            #elif str(reaction.emoji) == "3️⃣":
+            #    await message.edit(embed=embed3)
+            #    await message.remove_reaction(reaction, user)
+            #elif str(reaction.emoji) == "4️⃣":
+            #    await message.edit(embed=embed4)
+            #    await message.remove_reaction(reaction, user)
+            #elif str(reaction.emoji) == "5️⃣":
+            #    await message.edit(embed=embed5)
+            #    await message.remove_reaction(reaction, user)
+            else:
+                await message.remove_reaction(reaction, user)
+                # removes reactions if the user tries to go forward on the last page or
+                # backwards on the first page
+        except asyncio.TimeoutError:
+            await message.delete()
+            break
 
 client.run(config.bbtoken)
 
