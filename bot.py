@@ -116,6 +116,21 @@ async def server(ctx):
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
     await ctx.send(embed=embed)
 
+@client.command(aliases=["fancy"])
+async def fancify(ctx, *, text):
+    """Makes text fancy!"""
+    try:
+        def strip_non_ascii(string):
+            """Returns the string without non ASCII characters."""
+            stripped = (c for c in string if 0 < ord(c) < 127)
+            return ''.join(stripped)
+
+@client.command(aliases=["suggestion"])
+async def suggest(ctx, *, msg):
+    user = client.get_user(401063536618373121)
+    await ctx.send(msg)
+
+
 @client.command()
 async def uptime(ctx):
     current_time = time.time()
@@ -240,6 +255,7 @@ async def help(ctx):
     embed2.add_field(name=prefix + "~~weather <zip code> <c or f>~~", value="~~Get the weather at your location~~", inline=False)
     embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
     embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
+    embed2.add_field(name=prefix + "fancify <text>", value="Makes text 𝓕𝓐𝓝𝓒𝓨", inline=False)
     embed2.add_field(name=prefix + "hug", value="Hug anyone in the server!", inline=False)
     embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
