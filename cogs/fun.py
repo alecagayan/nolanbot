@@ -17,6 +17,13 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command()
+    @commands.dm_only()
+    async def sendinnewmembers(self, ctx, *, msg):
+        if(ctx.author.id == 401063536618373121):
+            channel = self.bot.get_channel(741398310228721844)
+            await channel.send(msg)
+
     
     @commands.command()
     @commands.guild_only()

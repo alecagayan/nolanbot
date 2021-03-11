@@ -1,4 +1,5 @@
 import discord
+import asyncio
 from discord.ext import commands
 
 
@@ -8,11 +9,16 @@ class Welcomer(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.bot.get_channel(741398310228721844)
-        guild = member.guild
 
-        to_send = 'Welcome to the underground, {0.mention}.'.format(member, guild)
-        await channel.send(to_send)
+        asyncio.sleep(2)
+        role = discord.utils.find(lambda r: r.name == 'Youtube Member', self.bot.message.server.roles)
+
+        if role in member.roles:
+            channel = self.bot.get_channel(741398310228721844)
+            guild = member.guild
+
+            to_send = 'Welcome to the underground, {0.mention}.'.format(member, guild)
+            await channel.send(to_send)
 
     #sync def on_member_update(self, before, after):
 #
