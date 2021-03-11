@@ -127,6 +127,17 @@ async def uptime(ctx):
 
     await ctx.send(embed=embed)
 
+@client.command()
+async def perms(ctx):
+    embed = discord.Embed(color=0xf1c40f) #Golden
+    embed.set_thumbnail(url=ctx.guild.icon_url)
+    embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
+    embed.add_field(name='Necessary Perms', value='Manage Messages\nView Channels\nSend Messages\nEmbed Links\nAttach Files\nAdd Reactions\nUse External Emoji\nManage Messages\nRead Message History', inline=False)
+    embed.add_field(name='Future-Proof Perms', value='Connect\nSpeak', inline=False)
+    embed.add_field(name='The simple way to go about this would be to give the bot admin:', value="But that's not very secure", inline=False)
+    embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
+    await ctx.send(embed=embed)
+
 #@client.command()
 #async def covid(ctx, type = None, *, location = None):
 #
