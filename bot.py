@@ -125,12 +125,27 @@ async def fancify(ctx, *, text):
             stripped = (c for c in string if 0 < ord(c) < 127)
             return ''.join(stripped)
 
+        text = strip_non_ascii(text)
+        if len(text.strip()) < 1:
+            return await ctx.send(":x: ASCII characters only please!")
+        output = ""
+        for letter in text:
+            if 65 <= ord(letter) <= 90:
+                output += chr(ord(letter) + 119951)
+            elif 97 <= ord(letter) <= 122:
+                output += chr(ord(letter) + 119919)
+            elif letter == " ":
+                output += " "
+        await ctx.send(output)
+
+    except Exception as e:
+        print(e)
+    return
 
 @client.command()
 async def suggest(ctx, *, msg):
     user = client.get_user(401063536618373121)
     await ctx.send(msg)
-
 
 @client.command()
 async def uptime(ctx):
