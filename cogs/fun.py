@@ -38,19 +38,19 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.command()
-    @commands.guild_only()
-    async def lyrics(self, ctx, *, title):
-        response = await ctx.bot.srapi.get_lyrics(title)
-        lyric = response.lyrics
-        finallyric = (lyric[:1020] + '...') if len(lyric) > 1020 else lyric
-
-        embedColor = 0xFFD414
-        embed = discord.Embed(title="Lyrics of " + response.title + " by " + response.author + ":", color=embedColor)
-        embed.set_thumbnail(url=response.thumbnail)
-        embed.add_field(name = response.title, value=finallyric, inline=True)
-        embed.add_field(name = 'Full lyrics: ', value=response.link, inline=False)
-        await ctx.send(embed = embed)
+#    @commands.command()
+#    @commands.guild_only()
+#    async def lyrics(self, ctx, *, title):
+#       response = await ctx.bot.srapi.get_lyrics(title)
+#        lyric = response.lyrics
+#        finallyric = (lyric[:1020] + '...') if len(lyric) > 1020 else lyric
+#
+#        embedColor = 0xFFD414
+#        embed = discord.Embed(title="Lyrics of " + response.title + " by " + response.author + ":", color=embedColor)
+#        embed.set_thumbnail(url=response.thumbnail)
+#        embed.add_field(name = response.title, value=finallyric, inline=True)
+#        embed.add_field(name = 'Full lyrics: ', value=response.link, inline=False)
+#        await ctx.send(embed = embed)
 
     @commands.command()
     @commands.guild_only()
