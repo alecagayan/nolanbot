@@ -9,6 +9,8 @@ class Welcomer(commands.Cog):
     async def on_member_update(self, before, after):
 
         print('update: ' + after.display_name)
+        print('Status before: ' + before.status)
+        print('Status after: ' + after.status)
         print(before.roles)
         print(after.roles)
         #if((any(role.name == 'Youtube Member' for role in after.roles) and any(role.name == 'Youtube Member: Donut Underground' for role in after.roles) and not any(role.name == 'Boost Creeps' for role in after.roles)) and len(after.roles) > len(before.roles)):
