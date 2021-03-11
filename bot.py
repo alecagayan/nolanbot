@@ -226,7 +226,7 @@ async def help(ctx):
     embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
     embed2 = discord.Embed(title="Help Page 2/2", description="Need help? Look below!", color=embedColor)
-    embed2.add_field(name=prefix + "weather", value="Insults a user you tag. If nobody is tagged, an insult will be printed", inline=False)
+    embed2.add_field(name=prefix + "~~weather <zip code> <c or f>~~", value="~~Get the weather at your location~~", inline=False)
     embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
     embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
     embed2.add_field(name=prefix + "hug", value="Hug anyone in the server!", inline=False)
@@ -240,7 +240,7 @@ async def help(ctx):
 
     while True:
         try:
-            reaction, user = await ctx.wait_for("reaction_add", timeout=60, check=check)
+            reaction, user = await client.wait_for("reaction_add", timeout=60, check=check)
             # waiting for a reaction to be added - times out after x seconds, 60 in this
             # example
 
