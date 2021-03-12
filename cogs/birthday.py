@@ -64,14 +64,12 @@ class Birthday(commands.Cog):
 
         add_person(user_input, date_input)
 
-        print('hi0')
         await ctx.message.add_reaction("🎂")
 
     @commands.command()
     async def birthdaystoday(self, ctx, todaysdate = None):
         with open('birthdays.json', 'r') as f:
             bd_names = json.load(f)
-
         today = datetime.datetime.today()
         day = today.day
         month = today.month
@@ -93,8 +91,6 @@ class Birthday(commands.Cog):
                     await msg.add_reaction('🎂')
                     await msg.add_reaction('🎉')
                     await msg.add_reaction('🥳')
-
-        print('hi2')
 
 def setup(bot):
     bot.add_cog(Birthday(bot))

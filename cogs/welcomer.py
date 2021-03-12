@@ -10,8 +10,8 @@ class Welcomer(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
 
-        asyncio.sleep(2)
-        role = discord.utils.find(lambda r: r.name == 'Youtube Member', self.bot.message.server.roles)
+        await asyncio.sleep(10)
+        role = discord.utils.get(member.guild.roles, name="Youtube Member")
 
         if role in member.roles:
             channel = self.bot.get_channel(741398310228721844)
