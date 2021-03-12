@@ -44,6 +44,7 @@ def file_age_in_seconds(pathname):
 client.load_extension("cogs.welcomer")
 client.remove_command('help')
 client.load_extension("cogs.poll")
+client.load_extension("cogs.birthday")
 #client.load_extension("cogs.help")
 client.load_extension("cogs.fun")
 
@@ -95,7 +96,7 @@ async def ping(ctx):
     """
     Pings the bot.
     """
-    joke = random.choice(["NO FEAR", "MO INTERNET BABEH", "fire it up"])
+    joke = random.choice(["NO FEAR", "MO INTERNET BABEH", "fire it up", "LIGHTNING"])
     ping_msg = await ctx.send("Pinging Server...")
     await ping_msg.edit(content=joke + f" // ***{client.latency*1000:.0f}ms***")
 
