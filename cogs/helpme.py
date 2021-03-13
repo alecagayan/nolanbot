@@ -24,12 +24,12 @@ class Helpme(commands.Cog):
         elif tag == None:
                 embed=discord.Embed(title='Available Tags', description='The tags below are available to use with the !helpme command!', color=0xf1c40f)
                 embed.set_thumbnail(url=ctx.guild.icon_url)
-                embed.add_field(name='sticker', value='', inline=True)
-                embed.add_field(name='order', value='', inline=True)
-                embed.add_field(name='membership', value='', inline=True)
-                embed.add_field(name='donut', value='', inline=True)
-                embed.add_field(name='server', value='', inline=True)
-                embed.add_field(name='perks', value='', inline=True)
+                embed.add_field(name='sticker', value=' ', inline=True)
+                embed.add_field(name='order', value=' ', inline=True)
+                embed.add_field(name='membership', value=' ', inline=True)
+                embed.add_field(name='donut', value=' ', inline=True)
+                embed.add_field(name='server', value=' ', inline=True)
+                embed.add_field(name='perks', value=' ', inline=True)
                 await ctx.send(embed=embed)
 
 def setup(bot):
