@@ -48,6 +48,8 @@ client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
 #client.load_extension("cogs.help")
 client.load_extension("cogs.fun")
+client.load_extension("cogs.music")
+
 
 # Start bot and print status to console
 
