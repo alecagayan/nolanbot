@@ -12,7 +12,7 @@ class Helpme(commands.Cog):
         if(tag == 'sticker'):
             await ctx.send('Check out <#788841099325079622> for all your sticker related questions!')
         elif tag == 'order':
-            await ctx.send('Not sure what to put here, someone please help by committing to my repository at https://github.com/oopsie1412/donutbot')
+            await ctx.send("Hey there, looks like you're having a problem with your order.\nThe first step you should take is to go ahead and **take a look at the <#788857573230772294> channel**. The Donut team is not directly associated with merch, so **the best way to get ahold of the merch team would be to email `shop@donut.media`!**")
         elif tag == 'server':
             await ctx.send("THIS... is the Donut Underground discord server, and today I'm gonna show you all around it. We're gonna look at the wonderful quirks and features, then I'm gonna take you out for a tour, and then I'm gonna give it a Doug Score. An adventure awaits you, head to <#731210410614849586> to learn more!")
         elif tag == 'perks':
