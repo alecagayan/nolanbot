@@ -276,7 +276,7 @@ async def help(ctx):
     embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
     embed2 = discord.Embed(title="Help Page 2/5", description="Need help? Look below!", color=embedColor)
-    embed2.add_field(name=prefix + "weather <zip code> <c or f>", value="~~Get the weather at your location~~", inline=False)
+    embed2.add_field(name=prefix + "weather <zip code> <c or f>", value="Get the weather at your location", inline=False)
     embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
     embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
     embed2.add_field(name=prefix + "fancify <text>", value="Makes text 𝓕𝓐𝓝𝓒𝓨", inline=False)
