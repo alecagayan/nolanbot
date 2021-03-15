@@ -6,6 +6,7 @@ import urllib.request
 import json
 import sr_api
 from discord.ext import commands
+from discord.ext.commands import clean_content
 
 def date(target, clock=True):
     """ Clock format using datetime.strftime() """
@@ -33,6 +34,40 @@ class Fun(commands.Cog):
         await ctx.message.add_reaction("👍")
         await ctx.message.add_reaction("👎")
 
+    @commands.command(aliases=['8ball']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
+    async def eightball(self, ctx, *, _ballInput: clean_content):
+        """extra generic just the way you like it"""
+        choiceType = random.choice(["(Affirmative)", "(Non-committal)", "(Negative)"])
+        if choiceType == "(Affirmative)":
+            prediction = random.choice(["It is certain ", 
+                                        "It is decidedly so ", 
+                                        "Without a doubt ", 
+                                        "Yes, definitely ", 
+                                        "You may rely on it ", 
+                                        "As I see it, yes ",
+                                        "Most likely ", 
+                                        "Outlook good ", 
+                                        "Yes ", 
+                                        "Signs point to yes "]) + ":8ball:"
+
+            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0x3be801, description=prediction))
+        elif choiceType == "(Non-committal)":
+            prediction = random.choice(["Reply hazy try again ", 
+                                        "Ask again later ", 
+                                        "Better not tell you now ", 
+                                        "Cannot predict now ", 
+                                        "Concentrate and ask again "]) + ":8ball:"
+            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xff6600, description=prediction))
+        elif choiceType == "(Negative)":
+            prediction = random.choice(["Don't count on it ", 
+                                        "My reply is no ", 
+                                        "My sources say no ", 
+                                        "Outlook not so good ", 
+                                        "Very doubtful "]) + ":8ball:"
+            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xE80303, description=prediction))
+        emb.set_author(name='Magic 8 ball', icon_url='https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
+        await ctx.send(embed=emb)
+
     @commands.command()
     @commands.guild_only()
     async def joined(self, ctx, *, user: discord.Member = None):
@@ -43,6 +78,36 @@ class Fun(commands.Cog):
         embed.set_thumbnail(url=user.avatar_url)
         embed.description = f'**{user}** joined **{ctx.guild.name}**\n{date(user.joined_at)}'
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def expand(self, ctx,  num: int, *, s: clean_content):
+        spacing = ""
+        if num > 0 and num <= 5:
+            for _ in range(num):
+                spacing+=" "
+            result = spacing.join(s)
+            if len(result) <= 200:
+                await ctx.send(result)
+            else:
+                try:
+                    await ctx.author.send(result)
+                    await ctx.send(f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**")
+                except Exception:
+                    await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
+        else:
+            await ctx.send("```fix\nError: The number can only be from 1 to 5```")
+
+    @commands.command()
+    async def reverse(self, ctx, *, s: clean_content):
+        result = await commands.clean_content().convert(ctx, s[::-1])
+        if len(result) <= 350:
+            await ctx.send(f"{result}")
+        else:
+            try:
+                await ctx.author.send(f"{result}")
+                await ctx.send(f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**")
+            except Exception:
+                await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
 
 #    @commands.command()
