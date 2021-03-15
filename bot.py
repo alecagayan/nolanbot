@@ -74,6 +74,10 @@ async def die(ctx):
     else:
         await ctx.send(config.err_mesg_permission)
 
+@client.command(aliases=['github', 'git'])
+async def commit(ctx):
+    await ctx.send('https://github.com/oopsie1412/donutbot')
+
 @client.command(aliases=['game', 'presence'])
 async def setgame(self, ctx, *args):
 #Sets the 'Playing' status.
