@@ -94,8 +94,8 @@ class Fun(commands.Cog):
     @commands.command()
     async def mockme(self, ctx, member: discord.Member = None):
 
-        insult = random.choice(['no clue what to put here lmao, go to https://github.com/oopsie1412/donutbot/blob/main/cogs/fun.py',
-                                                            'you oil-leaking shitbox'])
+        insult = random.choice(["you oil-leaking shitbox",
+                                "you're a few gears short of a 6 speed aren't you"])
         if(member == None):
             await ctx.send(insult)
         else:
