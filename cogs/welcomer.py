@@ -10,10 +10,15 @@ class Welcomer(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
 
+        print('member 10 sec count now')
+
         await asyncio.sleep(10)
-        role = discord.utils.get(member.guild.roles, name="Youtube Member")
+
+        print('10sec count over')
+        role = discord.utils.get(member.guild.roles, name="YouTube Member")
 
         if role in member.roles:
+            print('role found')
             channel = self.bot.get_channel(741398310228721844)
             guild = member.guild
 
