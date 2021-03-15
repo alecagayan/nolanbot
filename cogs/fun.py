@@ -92,9 +92,14 @@ class Fun(commands.Cog):
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
 
     @commands.command()
-    async def insult(self, ctx, member: discord.Member = None):
-        await ctx.send(member.mention + " " + random.choice(['no clue what to put here lmao, go to https://github.com/oopsie1412/donutbot/blob/main/cogs/fun.py',
-                                                            'you oil-leaking shitbox']))
+    async def mockme(self, ctx, member: discord.Member = None):
+
+        insult = random.choice(['no clue what to put here lmao, go to https://github.com/oopsie1412/donutbot/blob/main/cogs/fun.py',
+                                                            'you oil-leaking shitbox'])
+        if(member == None):
+            await ctx.send(insult)
+        else:
+            await ctx.send(member.mention + insult)
 
 
 #    @commands.command()
