@@ -101,6 +101,9 @@ class Fun(commands.Cog):
         else:
             await ctx.send(member.mention + insult)
 
+    @commands.command()
+    async def engineer(self, ctx):
+        await ctx.send('https://tenor.com/view/engineer-yee-haw-dosido-square-dance-engineer-dancing-gif-15569822')
 
 #    @commands.command()
 #    @commands.guild_only()
@@ -144,16 +147,13 @@ class Fun(commands.Cog):
         """Hug someone on the server <3"""
         try:
             if member is None:
-                await ctx.channel.purge(limit=1)
                 await ctx.send(ctx.message.author.mention + " has been hugged!")
                 await ctx.send("https://gph.is/g/ajxG084")
             else:
                 if member.id == ctx.message.author.id:
-                    await ctx.channel.purge(limit=1)
                     await ctx.send(ctx.message.author.mention + " has hugged themself!")
                     await ctx.send("https://gph.is/g/ajxG084")
                 else:
-                    await ctx.channel.purge(limit=1)
                     await ctx.send(member.mention + " has been hugged by " + ctx.message.author.mention + "!")
                     await ctx.send("https://gph.is/g/ajxG084")
 

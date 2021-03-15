@@ -263,10 +263,10 @@ async def help(ctx):
     await message.add_reaction("2️⃣")
     await message.add_reaction("3️⃣")
     await message.add_reaction("4️⃣")
-    #await message.add_reaction("5️⃣")
+    await message.add_reaction("5️⃣")
 
 
-    embed1 = discord.Embed(title="Help Page 1/4", description="Need help? Look below", color=embedColor)
+    embed1 = discord.Embed(title="Help Page 1/5", description="Need help? Look below", color=embedColor)
     embed1.add_field(name=prefix + "helpme <tag or empty for info>", value='Get DU related help and answers to your questions!', inline=False)
     embed1.add_field(name=prefix + "vote", value="Makes a quick yes/no poll", inline=False)
     embed1.add_field(name=prefix + "covid <state or county> <name>", value="Gives coronavirus statistics", inline=False)
@@ -275,7 +275,7 @@ async def help(ctx):
     embed1.add_field(name=prefix + "quickpoll", value="Creates a quick poll with multiple options", inline=False)
     embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
-    embed2 = discord.Embed(title="Help Page 2/4", description="Need help? Look below!", color=embedColor)
+    embed2 = discord.Embed(title="Help Page 2/5", description="Need help? Look below!", color=embedColor)
     embed2.add_field(name=prefix + "weather <zip code> <c or f>", value="~~Get the weather at your location~~", inline=False)
     embed2.add_field(name=prefix + "uptime", value="Shows the uptime of the bot", inline=False)
     embed2.add_field(name=prefix + "server", value="Gives server info", inline=False)
@@ -284,7 +284,7 @@ async def help(ctx):
     embed2.add_field(name=prefix + "birthday <month/day>", value="Set your birthday!", inline=False)
     embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
-    embed3 = discord.Embed(title="Help Page 3/4", description="Need help? Look below!", color=embedColor)
+    embed3 = discord.Embed(title="Help Page 3/5", description="Need help? Look below!", color=embedColor)
     embed3.add_field(name=prefix + "birthdaystoday", value="Announce today's birthdays!", inline=False)
     embed3.add_field(name=prefix + "roll", value='Rolls a die', inline=False)
     embed3.add_field(name=prefix + "joined <member>", value="Find out when a member joined the discord!", inline=False)
@@ -293,17 +293,27 @@ async def help(ctx):
     embed3.add_field(name=prefix + "stop", value="Stops the song and leaves the voice channel", inline=False)
     embed3.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
-    embed4 = discord.Embed(title="Help Page 4/4", description="Need help? Look below!", color=embedColor)
+    embed4 = discord.Embed(title="Help Page 4/5", description="Need help? Look below!", color=embedColor)
     embed4.add_field(name=prefix + "np", value="Shows what is playing now", inline=False)
     embed4.add_field(name=prefix + "q", value='Shows a queue of upcoming songs', inline=False)
     embed4.add_field(name=prefix + "volume <1 - 100>", value="Set the volume of the bot in VC", inline=False)
     embed4.add_field(name=prefix + "suggest <suggestion>", value="PLEASE let me know how I can improve my work!", inline=False)
+    embed4.add_field(name=prefix + "8ball <8ball query>", value="Outlook Good", inline=False)
+    embed4.add_field(name=prefix + "reverse <text>", value="Reverses text: txet sesreveR", inline=False)
     embed4.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+
+    embed5 = discord.Embed(title="Help Page 5/5", description="Need help? Look below!", color=embedColor)
+    embed5.add_field(name=prefix + "mockme <optional user>", value="Shoots out a friendly insult", inline=False)
+    embed5.add_field(name=prefix + "engineer", value='Shows a community-curated gif', inline=False)
+    embed5.add_field(name=prefix + "volume <1 - 100>", value="Set the volume of the bot in VC", inline=False)
+    embed5.add_field(name=prefix + "suggest <suggestion>", value="PLEASE let me know how I can improve my work!", inline=False)
+    embed5.add_field(name=prefix + "8ball <8ball query>", value="Outlook Good", inline=False)
+    embed5.add_field(name=prefix + "8ball <8ball query>", value="Outlook Good", inline=False)
+    embed5.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
 
     def check(reaction, user):
-        #return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
-        return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣"]
+        return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
 
     while True:
@@ -324,9 +334,9 @@ async def help(ctx):
             elif str(reaction.emoji) == "4️⃣":
                 await message.edit(embed=embed4)
                 await message.remove_reaction(reaction, user)
-            #elif str(reaction.emoji) == "5️⃣":
-            #    await message.edit(embed=embed5)
-            #    await message.remove_reaction(reaction, user)
+            elif str(reaction.emoji) == "5️⃣":
+                await message.edit(embed=embed5)
+                await message.remove_reaction(reaction, user)
             else:
                 await message.remove_reaction(reaction, user)
                 # removes reactions if the user tries to go forward on the last page or
