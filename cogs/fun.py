@@ -80,24 +80,6 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def expand(self, ctx,  num: int, *, s: clean_content):
-        spacing = ""
-        if num > 0 and num <= 5:
-            for _ in range(num):
-                spacing+=" "
-            result = spacing.join(s)
-            if len(result) <= 200:
-                await ctx.send(result)
-            else:
-                try:
-                    await ctx.author.send(result)
-                    await ctx.send(f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**")
-                except Exception:
-                    await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
-        else:
-            await ctx.send("```fix\nError: The number can only be from 1 to 5```")
-
-    @commands.command()
     async def reverse(self, ctx, *, s: clean_content):
         result = await commands.clean_content().convert(ctx, s[::-1])
         if len(result) <= 350:
@@ -108,6 +90,11 @@ class Fun(commands.Cog):
                 await ctx.send(f"**{ctx.author.mention} The output too was too large, so I sent it to your DMs! :mailbox_with_mail:**")
             except Exception:
                 await ctx.send(f"**{ctx.author.mention} There was a problem, and I could not send the output. It may be too large or malformed**")
+
+@client.command()
+async def insult(ctx, member: discord.Member = None):
+    await ctx.send(member.mention + " " + random.choice(['no clue what to put here lmao, go to https://github.com/oopsie1412/donutbot/blob/main/cogs/fun.py',
+                                                        'you oil-leaking shitbox']))
 
 
 #    @commands.command()
