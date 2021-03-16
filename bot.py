@@ -99,16 +99,13 @@ async def roll(ctx):
     await ctx.send(config.die_url[random.randint(1,6)-1])
 
 @client.command()
-async def ping(ctx, real = None):
+async def ping(ctx):
     """
     Pings the bot.
     """
     joke = random.choice(["NO FEAR", "MO INTERNET BABEH", "fire it up", "LIGHTNING"])
     ping_msg = await ctx.send("Pinging Server...")
-    if(ctx.author.id == 401063536618373121 and real == None): #trickery ensues
-        await ping_msg.edit(content=joke + f" // ***{1:.0f}ms***")
-    else:
-        await ping_msg.edit(content=joke + f" // ***{client.latency*1000:.0f}ms***")
+    await ping_msg.edit(content=joke + f" // ***{client.latency*1000:.0f}ms***")
 
 @client.command(pass_context=True, aliases=['serverinfo', 'guild', 'membercount'])
 async def server(ctx):
