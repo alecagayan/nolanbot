@@ -95,7 +95,8 @@ class Fun(commands.Cog):
     async def mockme(self, ctx, member: discord.Member = None):
 
         insult = random.choice(["you oil-leaking shitbox",
-                                "you're a few gears short of a 6 speed aren't you"])
+                                "you're a few gears short of a 6 speed aren't you",
+                                "you better watch your damn mouth before I take you to gapplebees"])
         if(member == None):
             await ctx.send(insult)
         else:

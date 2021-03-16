@@ -305,10 +305,6 @@ async def help(ctx):
     embed5 = discord.Embed(title="Help Page 5/5", description="Need help? Look below!", color=embedColor)
     embed5.add_field(name=prefix + "mockme <optional user>", value="Shoots out a friendly insult", inline=False)
     embed5.add_field(name=prefix + "engineer", value='Shows a community-curated gif', inline=False)
-    embed5.add_field(name=prefix + "volume <1 - 100>", value="Set the volume of the bot in VC", inline=False)
-    embed5.add_field(name=prefix + "suggest <suggestion>", value="PLEASE let me know how I can improve my work!", inline=False)
-    embed5.add_field(name=prefix + "8ball <8ball query>", value="Outlook Good", inline=False)
-    embed5.add_field(name=prefix + "8ball <8ball query>", value="Outlook Good", inline=False)
     embed5.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
 
