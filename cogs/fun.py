@@ -20,9 +20,9 @@ class Fun(commands.Cog):
 
     @commands.command()
     @commands.dm_only()
-    async def sendinnewmembers(self, ctx, *, msg):
+    async def sendinserver(self, ctx, channelid, *, msg):
         if(ctx.author.id == 401063536618373121):
-            channel = self.bot.get_channel(741398310228721844)
+            channel = self.bot.get_channel(channelid)
             await channel.send(msg)
 
     
@@ -100,7 +100,7 @@ class Fun(commands.Cog):
         if(member == None):
             await ctx.send(insult)
         else:
-            await ctx.send(member.mention + insult)
+            await ctx.send(member.mention, insult)
 
     @commands.command()
     async def engineer(self, ctx):
@@ -144,7 +144,7 @@ class Fun(commands.Cog):
         await ctx.send(ctx.guild.icon_url_as(size=1024))
 
     @commands.command()
-    async def hug(self, ctx, *, member: discord.Member = None):
+    async def hug(self, ctx, member: discord.Member = None, member2: discord.Member = None, member3: discord.Member = None):
         """Hug someone on the server <3"""
         try:
             if member is None:
