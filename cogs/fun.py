@@ -20,10 +20,10 @@ class Fun(commands.Cog):
 
     @commands.command()
     @commands.dm_only()
-    async def sendinserver(self, ctx, channelid, *, msg):
+    async def sendinserver(self, ctx, channelid, *msg):
         if(ctx.author.id == 401063536618373121):
             print(channelid)
-            channel = self.bot.get_channel(channelid)
+            channel = self.bot.get_channel(int(channelid))
             await channel.send(msg)
 
     
