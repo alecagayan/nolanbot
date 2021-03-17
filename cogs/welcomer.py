@@ -24,7 +24,7 @@ class Welcomer(commands.Cog):
 
             to_send = 'Welcome to the underground, {0.mention}.'.format(member, guild)
             await channel.send(to_send)
-            await channel.send("Rule 1: welcome into the server, I hope you have a wonderful time in here! Please see #rules for the official server rules")
+            await channel.send("Rule 1: welcome into the server, I hope you have a wonderful time in here! Please see <#731209804504367104> for the official server rules")
             await channel.send("Rule 2: if you would like to, please show us your car in <#733836074278846514>! All cars are welcome!")
 
     #sync def on_member_update(self, before, after):
