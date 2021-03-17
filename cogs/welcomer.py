@@ -26,6 +26,7 @@ class Welcomer(commands.Cog):
             await channel.send(to_send)
             await channel.send("Rule 1: welcome into the server, I hope you have a wonderful time in here! Please see <#731209804504367104> for the official server rules")
             await channel.send("Rule 2: if you would like to, please show us your car in <#733836074278846514>! All cars are welcome!")
+            await channel.send("-DogeLord1998")
 
     #sync def on_member_update(self, before, after):
 #
