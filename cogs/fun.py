@@ -34,6 +34,10 @@ class Fun(commands.Cog):
 
         await ctx.message.add_reaction("👍")
         await ctx.message.add_reaction("👎")
+    @commands.command()
+    @commands.guild_only()
+    async def milk(self, ctx):
+        await ctx.send(":wat::milk::bignol:")
 
     @commands.command(aliases=['8ball']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
     async def eightball(self, ctx, *, _ballInput: clean_content):
