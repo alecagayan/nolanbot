@@ -17,7 +17,8 @@ class Helpme(commands.Cog):
             await ctx.send("THIS... is the Donut Underground discord server, and today I'm gonna show you all around it. We're gonna look at the wonderful quirks and features, then I'm gonna take you out for a tour, and then I'm gonna give it a Doug Score. An adventure awaits you, head to <#731210410614849586> to learn more!")
         elif tag == 'perks':
             await ctx.send("As a Donut Underground member, many perks await you. You get to chat in this server along with getting behind the scenes videos, a merch discount, loyalty badges and emojis, and an exclusive sticker mailed every 3 months!")
-        elif tag == None:
+        elif tag == 'discount':
+            await ctx.send("Make sure to fill out this form and use the same email address when you check out from the Donut Media Store: https://mailchi.mp/donut.media/vipunderground")
                 embed=discord.Embed(title='Available Tags', description='The tags below are available to use with the !helpme command!', color=0xf1c40f)
                 embed.set_thumbnail(url=ctx.guild.icon_url)
                 embed.add_field(name='sticker', value='Get info about your sticker order', inline=True)
