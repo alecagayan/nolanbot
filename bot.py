@@ -113,13 +113,14 @@ async def server(ctx):
     #prints server info
     roles = ctx.guild.roles
     embed = discord.Embed(color=0xf1c40f) #Golden
+    role = discord.utils.get(ctx.guild.roles, name="YouTube Member")
     embed.set_thumbnail(url=ctx.guild.icon_url)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
     embed.add_field(name='Name', value=ctx.guild.name, inline=True)
     embed.add_field(name='ID', value=ctx.guild.id, inline=True)
     embed.add_field(name='Owner', value=ctx.guild.owner, inline=True)
     embed.add_field(name='Region', value=ctx.guild.region, inline=True)
-    embed.add_field(name='Member Count', value=ctx.guild.member_count, inline=True)
+    embed.add_field(name='Member Count', value=len(role.members), inline=True)
     embed.add_field(name='Creation', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
     await ctx.send(embed=embed)
