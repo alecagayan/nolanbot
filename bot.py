@@ -179,7 +179,7 @@ async def stats(ctx):
     embed.add_field(name="CPU", value='Logical CPUs: ' +  str(psutil.cpu_count(logical=True))
                     + '\nCPU Frequency: ' +  str(psutil.cpu_freq(percpu=False))
                     + '\nCPU Load: ' + str(psutil.getloadavg())
-                    + '\nCPU Temperature: ' + str(psutil.temperatures(fahrenheit=False)))
+                    + '\nCPU Temperature: ' + str(psutil.sensors_temperatures(fahrenheit=False)))
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
 
     await ctx.send(embed=embed)
