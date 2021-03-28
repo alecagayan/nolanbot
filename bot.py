@@ -1,5 +1,6 @@
 import discord
 import config
+import psutil
 import platform
 import json
 import os
@@ -163,6 +164,22 @@ async def uptime(ctx):
     text = str(datetime.timedelta(seconds=difference))
     embed = discord.Embed(colour=ctx.message.author.top_role.colour)
     embed.add_field(name="Uptime", value=text)
+    embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
+
+    await ctx.send(embed=embed)
+
+@client.command()
+async def netdiskcpu(ctx):
+    embedColor = random.randint(0, 0xffffff)
+    embed = discord.Embed(title="Stats:", color=embedColor)
+
+    embed.add_field(name="Net IO Counters", value=psutil.net_io_counters())
+    embed.add_field(name="Disk IO Counters", value=psutil.disk_io_counters())
+    embed.add_field(name="Disk Usage", value=psutil.disk_usage('/'))
+    embed.add_field(name="CPU", value='Logical CPUs: ' +  str(psutil.cpu_count(logical=True))
+                    + '\nCPU Frequency: ' +  str(psutil.cpu_freq(percpu=False))
+                    + '\nCPU Load: ' + str(psutil.getloadavg())
+                    + '\nCPU Temperature: ' + str(psutil.temperatures(fahrenheit=False)))
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
 
     await ctx.send(embed=embed)

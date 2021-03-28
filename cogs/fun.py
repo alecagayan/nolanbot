@@ -163,7 +163,6 @@ class Fun(commands.Cog):
                 else:
                     await ctx.send(member.mention + " has been hugged by " + ctx.message.author.mention + "!")
                     await ctx.send("https://gph.is/g/ajxG084")
-
         except Exception as e:
             print('erroreeee: ' + e)
         return
