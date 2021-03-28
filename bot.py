@@ -169,7 +169,7 @@ async def uptime(ctx):
     await ctx.send(embed=embed)
 
 @client.command()
-async def netdiskcpu(ctx):
+async def stats(ctx):
     embedColor = random.randint(0, 0xffffff)
     embed = discord.Embed(title="Stats:", color=embedColor)
 
