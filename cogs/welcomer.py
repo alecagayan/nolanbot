@@ -10,9 +10,9 @@ class Welcomer(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
 
-        print('member 10 sec count now')
+        print('member 2 sec count now')
 
-        await asyncio.sleep(10)
+        await asyncio.sleep(2)
 
         print('10sec count over')
         role = discord.utils.get(member.guild.roles, name="YouTube Member")
