@@ -308,6 +308,10 @@ class Music(commands.Cog):
 
         await player.queue.put(source)
 
+    @commands.command(name='info')
+    async def channelinfo_(self, ctx):
+        await ctx.send(ctx.voice_client.bitrate)
+
     @commands.command(name='pause')
     async def pause_(self, ctx):
         """Pause the currently playing song."""

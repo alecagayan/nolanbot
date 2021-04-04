@@ -38,7 +38,7 @@ class Fun(commands.Cog):
     @commands.command()
     @commands.guild_only()
     async def milk(self, ctx):
-        await ctx.send(":wat: :milk: :bignol:")
+        await ctx.send("<:wat:733817269469315113> :milk: <:bignol:808398271453986816>")
 
     @commands.command(aliases=['8ball']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
     async def eightball(self, ctx, *, _ballInput: clean_content):
@@ -161,7 +161,7 @@ class Fun(commands.Cog):
                     await ctx.send(ctx.message.author.mention + " has hugged themself!")
                     await ctx.send("https://gph.is/g/ajxG084")
                 else:
-                    await ctx.send(member.mention + " has been hugged by " + ctx.message.author.mention + "!")
+                    await ctx.send(member.display_name + " has been hugged by " + ctx.message.author.mention + "!")
                     await ctx.send("https://gph.is/g/ajxG084")
         except Exception as e:
             print('erroreeee: ' + e)

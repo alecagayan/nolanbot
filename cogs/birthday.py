@@ -3,7 +3,7 @@ import asyncio
 import json
 import datetime
 from datetime import date
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 bd_names = {}
 users_to_celebrate = []
@@ -36,25 +36,40 @@ time_for_thing_to_happen = datetime.time(hour=0)  # 0000UTC - suck it PST people
 #def exception_catching_callback(task):
 #    if task.exception():
 #        task.print_stack()
-
-async def birthdaycheck():
-    today = datetime.datetime.today()
-    day = today.day
-    month = today.month
-
-
-    with open('birthdays.json', 'r') as f:
-        birthdays =json.load(f)
-        for user_to_celebrate in birthdays[f"{day}/{month}"]:
-            users_to_celebrate.append(user_to_celebrate)
-
-
 class Birthday(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
 #    task = asyncio.create_task(timedtask())
 #    task.add_done_callback(exception_catching_callback)
+
+    @tasks.loop(hours=24)
+    async def birthdaycheck(self):
+        with open('birthdays.json', 'r') as f:
+            bd_names = json.load(f)
+        today = datetime.datetime.today()
+        day = today.day
+        month = today.month
+
+        if todaysdate == None:
+            todaysdate = str(today.month) + '/' + str(today.day)
+
+        name = str(ctx.author.id)
+
+        print(bd_names)
+        print(todaysdate)
+
+        if name in bd_names:
+            for name in bd_names:
+                if bd_names[name] == todaysdate:
+                    print(name, "'s birthday is ", bd_names[name])
+                    #channel = self.bot.get_channel(819296626103025705)
+                    msg = await channel.send("Happy birthday <@" + name + ">!")
+                    await msg.add_reaction('🎂')
+                    await msg.add_reaction('🎉')
+                    await msg.add_reaction('🥳')
+
+    birthdaycheck.start()
 
     @commands.command()
     async def birthday(self, ctx, *, bday):
