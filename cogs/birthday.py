@@ -112,10 +112,12 @@ class Birthday(commands.Cog):
         with open('birthdays.json', 'r') as f:
             bd_names = json.load(f)
 
+        bdaylist = []
         for name in bd_names:
             #member = ctx.guild.get_member(name)
-            await ctx.send(str(name) + str(bd_names[name]))
+            bdaylist.append(str(name) + str(bd_names[name]) + '\n')
 
+        await ctx.send(*bdaylist)
 
 
 
