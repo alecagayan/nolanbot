@@ -106,6 +106,18 @@ class Birthday(commands.Cog):
                     await msg.add_reaction('🎂')
                     await msg.add_reaction('🎉')
                     await msg.add_reaction('🥳')
+    
+    @commands.command()
+    async def allbirthdays(self, ctx):
+        with open('birthdays.json', 'r') as f:
+            bd_names = json.load(f)
+
+        for name in bd_names:
+            member = ctx.guild.get_member(name)
+            await ctx.send(str(member.nick) + str(bd_names[name]))
+
+
+
 
 def setup(bot):
     bot.add_cog(Birthday(bot))
