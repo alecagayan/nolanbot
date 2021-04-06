@@ -116,9 +116,9 @@ class Birthday(commands.Cog):
         for name in bd_names:
             #member = ctx.guild.get_member(name)
             bdaylist.append(str(name) + str(bd_names[name]) + '\n')
-            tosend = *bdaylist
+            tosend = ('\n'.join(map(str, bdaylist)))
 
-            await ctx.send(tosend)
+            await ctx.send(bdaylist)
 
 
 
