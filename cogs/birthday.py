@@ -113,8 +113,8 @@ class Birthday(commands.Cog):
             bd_names = json.load(f)
 
         for name in bd_names:
-            member = ctx.guild.get_member(name)
-            await ctx.send(str(member.nick) + str(bd_names[name]))
+            #member = ctx.guild.get_member(name)
+            await ctx.send(str(name) + str(bd_names[name]))
 
 
 
