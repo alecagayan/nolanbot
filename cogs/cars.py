@@ -86,7 +86,7 @@ class Cars(commands.Cog):
         rows = cur.fetchall()
 
         for row in rows:
-            print(row)
+            await ctx.send(row)
 
         db.commit()
         cur.close()
