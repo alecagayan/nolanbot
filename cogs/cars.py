@@ -20,7 +20,7 @@ class Cars(commands.Cog):
         await ctx.send(embed=embed1)
 
     @cars.command()
-    async def carsetup(self, ctx, *, model)
+    async def carsetup(self, ctx, *, model):
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
 
