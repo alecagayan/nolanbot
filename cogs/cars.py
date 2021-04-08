@@ -14,7 +14,7 @@ class Cars(commands.Cog):
     async def carhelp(self, ctx):
         embedColor = 0xFFD414
 
-        embed1 = discord.Embed(title="Available Setup Commands  IGNORE THIS FOR NOW", description="Need help? Look below", color=embedColor)
+        embed1 = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
         embed1.add_field(name="carsetup <make and model>", value="Add your car's make and model to the database", inline=False)
         embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
         embed1.add_field(name="car <member/none>", value="Look up your own or someone else's car!", inline=False)
