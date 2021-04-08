@@ -11,13 +11,13 @@ class Cars(commands.Cog):
         self.bot = bot
 
     @commands.command(invoke_without_command=True)
-    async def cars(self, ctx):
+    async def carhelp(self, ctx):
         embedColor = 0xFFD414
 
         embed1 = discord.Embed(title="Available Setup Commands  IGNORE THIS FOR NOW", description="Need help? Look below", color=embedColor)
-        embed1.add_field(name=prefix + "helpme <tag or empty for info>", value='Get DU related help and answers to your questions!', inline=False)
-        embed1.add_field(name=prefix + "vote", value="Makes a quick yes/no poll", inline=False)
-        embed1.add_field(name=prefix + "covid <state or county> <name>", value="Gives coronavirus statistics", inline=False)
+        embed1.add_field(name=prefix + "carsetup <make and model>", value="Add your car's make and model to the database", inline=False)
+        embed1.add_field(name=prefix + "carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
+        embed1.add_field(name=prefix + "car <member/none>", value="Look up your own or someone else's car!", inline=False)
         embed1.add_field(name=prefix + "lyrics <song name/artist>", value="Prints song lyrics", inline=False)
         embed1.add_field(name=prefix + "servericon", value="Returns the server icon", inline=False)
         embed1.add_field(name=prefix + "quickpoll", value="Creates a quick poll with multiple options", inline=False)
@@ -25,7 +25,7 @@ class Cars(commands.Cog):
         await ctx.send(embed=embed1)
 
     @commands.command()
-    async def carsetup(self, ctx, *, model):
+    async def carsetup(self, ctx, *, model):    
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
 
@@ -69,8 +69,6 @@ class Cars(commands.Cog):
 
     @commands.command()
     async def car(self, ctx, member: discord.Member = None):
-        print('hi')
-
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
 
