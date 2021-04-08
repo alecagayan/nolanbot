@@ -16,6 +16,9 @@ import time
 import plotly.express as px
 from discord.ext.commands import Bot
 from discord.ext import commands
+import sqlite3
+from os.path import isfile
+from sqlite3 import connect
 
 filename_state = os.path.join(config.botdir, "us-states.csv")
 filename_county = os.path.join(config.botdir, "us-counties.csv")
@@ -47,7 +50,7 @@ client.remove_command('help')
 client.load_extension("cogs.poll")
 client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
-#client.load_extension("cogs.help")
+client.load_extension("cogs.cars")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.music")
 
@@ -56,6 +59,22 @@ client.load_extension("cogs.music")
 
 @client.event
 async def on_ready():
+
+    DB_PATH = "./data/db/database.db"
+    BUILD_PATH = "./data/db/build.sql"
+
+    db = connect(DB_PATH, check_same_thread=False)
+    cur = db.cursor()
+
+    cur.execute('''
+                CREATE TABLE IF NOT EXISTS cars (
+                UserID integer PRIMARY KEY,
+                Car text,
+                Photo text,
+                AsOf text DEFAULT CURRENT_TIMESTAMP
+                );''')
+
+
     print("Bot online!\n")
     print("Discord.py API version:", discord.__version__)
     print("Python version:", platform.python_version())
