@@ -68,9 +68,18 @@ async def on_ready():
 
     cur.execute('''
                 CREATE TABLE IF NOT EXISTS cars (
-                UserID integer PRIMARY KEY,
+                UserID integer,
                 Car text,
                 Photo text,
+                Color text,
+                Year text,
+                Miles text,
+                Mods text,
+                Extra1 text,
+                Extra2 text,
+                Extra3 text,
+                Extra4 text,
+                Extra5 text
                 AsOf text DEFAULT CURRENT_TIMESTAMP
                 );''')
 
@@ -288,6 +297,11 @@ async def weather(ctx, a, t = None):
     embed.add_field(name="Visibility :eye:", value=str(round(weather.visibility_distance/1609.344, 1)) + ' miles', inline=True) #visibility
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
     await ctx.send(embed=embed)
+
+@client.command()
+async def test(ctx):
+    photo = ctx.message.attachments[0]
+    await ctx.send(photo.url)
 
 @client.command()
 async def help(ctx):
