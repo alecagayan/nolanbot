@@ -1,6 +1,9 @@
 import discord
 import asyncio
 from discord.ext import commands
+import sqlite3
+from os.path import isfile
+from sqlite3 import connect
 
 
 class Cars(commands.Cog):
