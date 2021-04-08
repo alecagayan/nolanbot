@@ -77,7 +77,7 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        if member.id == None:
+        if member.id is None:
             userid = ctx.message.author.id
         else:
             userid = member.id
