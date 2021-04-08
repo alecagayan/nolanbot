@@ -7,7 +7,7 @@ class Cars(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True)
+    @commands.command(invoke_without_command=True)
     async def cars(self, ctx):
         embed1 = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
         embed1.add_field(name=prefix + "helpme <tag or empty for info>", value='Get DU related help and answers to your questions!', inline=False)
@@ -19,7 +19,7 @@ class Cars(commands.Cog):
         embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
         await ctx.send(embed=embed1)
 
-    @cars.command()
+    @commands.command()
     async def carsetup(self, ctx, *, model):
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
