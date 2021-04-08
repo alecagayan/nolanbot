@@ -82,7 +82,7 @@ class Cars(commands.Cog):
         else:
             userid = member.id
 
-        cur.execute("SELECT * FROM cars WHERE UserID=?", (member.id,))
+        cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
         rows = cur.fetchall()
 
         for row in rows:
