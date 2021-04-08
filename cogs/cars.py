@@ -18,9 +18,6 @@ class Cars(commands.Cog):
         embed1.add_field(name=prefix + "carsetup <make and model>", value="Add your car's make and model to the database", inline=False)
         embed1.add_field(name=prefix + "carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
         embed1.add_field(name=prefix + "car <member/none>", value="Look up your own or someone else's car!", inline=False)
-        embed1.add_field(name=prefix + "lyrics <song name/artist>", value="Prints song lyrics", inline=False)
-        embed1.add_field(name=prefix + "servericon", value="Returns the server icon", inline=False)
-        embed1.add_field(name=prefix + "quickpoll", value="Creates a quick poll with multiple options", inline=False)
         embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
         await ctx.send(embed=embed1)
 
