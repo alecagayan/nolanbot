@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import sqlite3
+import datetime
 from os.path import isfile
 from sqlite3 import connect
 
@@ -82,6 +83,8 @@ class Cars(commands.Cog):
 
         for row in rows:
             await ctx.send(row)
+
+        embed = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
 
         db.commit()
         cur.close()
