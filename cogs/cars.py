@@ -11,11 +11,9 @@ class Cars(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(invoke_without_command=True)
+    @commands.command()
     async def carhelp(self, ctx):
-        embedColor = 0xFFD414
-
-        embed1 = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
+        embed1 = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=0xFFD414)
         embed1.add_field(name="carsetup <make and model>", value="Add your car's make and model to the database", inline=False)
         embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
         embed1.add_field(name="carupdate <same make and model as setup> <color/year/mods/miles> <value>", value="Add info about your car to the database", inline=False)
@@ -44,7 +42,7 @@ class Cars(commands.Cog):
         db.close()
 
     @commands.command()
-    async def carupdate(self, ctx, model, field, *, mod):
+    async def carupdate(self, ctx, model, field, *, mod, ):
 
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
