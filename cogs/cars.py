@@ -18,6 +18,7 @@ class Cars(commands.Cog):
         embed1 = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
         embed1.add_field(name="carsetup <make and model>", value="Add your car's make and model to the database", inline=False)
         embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
+        embed1.add_field(name="carupdate <same make and model as setup> <color/year/mods/miles> <value>", value="Add info about your car to the database", inline=False)
         embed1.add_field(name="car <member/none>", value="Look up your own or someone else's car!", inline=False)
         embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
         await ctx.send(embed=embed1)
@@ -43,6 +44,40 @@ class Cars(commands.Cog):
         db.close()
 
     @commands.command()
+    async def carupdate(self, ctx, model, field, *, mod):
+
+        DB_PATH = "./data/db/database.db"
+        BUILD_PATH = "./data/db/build.sql"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+        if result is None:
+            await ctx.send('Please set up a car! use `!carhelp` to get some info!')
+        
+        if field == 'color':
+            sql = ("UPDATE cars SET Color = ? WHERE Car = ?")
+            val = (mod, model)
+        if field == 'year':
+            sql = ("UPDATE cars SET Year = ? WHERE Car = ?")
+            val = (mod, model)
+        if field == 'mods':
+            sql = ("UPDATE cars SET Mods = ? WHERE Car = ?")
+            val = (mod, model)
+        if field == 'miles':
+            sql = ("UPDATE cars SET Miles = ? WHERE Car = ?")
+            val = (mod, model)
+
+        if result is not None:
+            cur.execute(sql, val)
+        await ctx.send('Set!')
+        db.commit()
+        cur.close()
+        db.close()
+
+    @commands.command()
     async def carphoto(self, ctx, *, model):
 
         photo = ctx.message.attachments[0]
@@ -55,12 +90,15 @@ class Cars(commands.Cog):
         cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
         result = cur.fetchone()
         if result is None:
-            await ctx.send('Please run the `carphoto` command')
+            await ctx.send('Please set up a car! use `!carhelp` to get some info!')
         sql = ("UPDATE cars SET Photo = ? WHERE Car = ?")
         val = (photo.url, model)
         await ctx.send(str(ctx.message.author.mention) + "'s car photo has been set to " + photo.url)
 
-        cur.execute(sql, val)
+        if result is not None:
+            cur.execute(sql, val)
+        await ctx.send(str(ctx.message.author.mention) + "'s car photo has been set to " + photo.url)
+
         db.commit()
         cur.close()
         db.close()
