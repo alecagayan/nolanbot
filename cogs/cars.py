@@ -42,7 +42,7 @@ class Cars(commands.Cog):
         db.close()
 
     @commands.command()
-    async def carupdate(self, ctx, model, field, *, mod, ):
+    async def carupdate(self, ctx, model):
 
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
@@ -50,26 +50,42 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
+        def check(m):
+            return m.author == ctx.author
+
         cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
         result = cur.fetchone()
         if result is None:
             await ctx.send('Please set up a car! use `!carhelp` to get some info!')
-        
-        if field == 'color':
-            sql = ("UPDATE cars SET Color = ? WHERE Car = ?")
-            val = (mod, model)
-        if field == 'year':
-            sql = ("UPDATE cars SET Year = ? WHERE Car = ?")
-            val = (mod, model)
-        if field == 'mods':
-            sql = ("UPDATE cars SET Mods = ? WHERE Car = ?")
-            val = (mod, model)
-        if field == 'miles':
-            sql = ("UPDATE cars SET Miles = ? WHERE Car = ?")
-            val = (mod, model)
 
         if result is not None:
-            cur.execute(sql, val)
+        
+            await ctx.send('Which model year is your car?')
+            msgYear = await self.client.wait_for('message', check=check)
+            sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
+            valYear = (msgYear.content, model)
+
+            await ctx.send('Which color is your car?')
+            msgColor = await self.client.wait_for('message', check=check)
+            sqlColor = ("UPDATE cars SET Color = ? WHERE Car = ?")
+            valColor = (msgColor.content, model)
+
+            await ctx.send('How many miles does your car have?')
+            msgMiles = await self.client.wait_for('message', check=check)
+            sqlMiles = ("UPDATE cars SET Miles = ? WHERE Car = ?")
+            valMiles = (msgMiles.content, model)
+
+            await ctx.send('Which mods have you done to your car? Separate them with a comma!')
+            msgMods = await self.client.wait_for('message', check=check)
+            sqlMods = ("UPDATE cars SET Mods = ? WHERE Car = ?")
+            valMods = (msgMods.content, model)
+
+        if result is not None:
+            cur.execute(sqlYear, valYear)
+            cur.execute(sqlColor, valColor)
+            cur.execute(sqlMiles, valMiles)
+            cur.execute(sqlMods, valMods)
+
         await ctx.send('Set!')
         db.commit()
         cur.close()

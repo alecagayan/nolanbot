@@ -103,6 +103,14 @@ async def die(ctx):
     else:
         await ctx.send(config.err_mesg_permission)
 
+@client.command()
+async def hello(ctx):
+    def check(m):
+        return m.author == ctx.author
+    await ctx.send("Hello")
+    msg = await client.wait_for('message', check=check)
+    await ctx.send(f"You said {msg.content}. Hi again.")
+
 @client.command(aliases=['github', 'git'])
 async def commit(ctx):
     await ctx.send('https://github.com/oopsie1412/donutbot')
