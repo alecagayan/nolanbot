@@ -61,22 +61,22 @@ class Cars(commands.Cog):
         if result is not None:
         
             await ctx.send('Which model year is your car?')
-            msgYear = await self.client.wait_for('message', check=check)
+            msgYear = await self.bot.wait_for('message', check=check)
             sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
             valYear = (msgYear.content, model)
 
             await ctx.send('Which color is your car?')
-            msgColor = await self.client.wait_for('message', check=check)
+            msgColor = await self.bot.wait_for('message', check=check)
             sqlColor = ("UPDATE cars SET Color = ? WHERE Car = ?")
             valColor = (msgColor.content, model)
 
             await ctx.send('How many miles does your car have?')
-            msgMiles = await self.client.wait_for('message', check=check)
+            msgMiles = await self.bot.wait_for('message', check=check)
             sqlMiles = ("UPDATE cars SET Miles = ? WHERE Car = ?")
             valMiles = (msgMiles.content, model)
 
             await ctx.send('Which mods have you done to your car? Separate them with a comma!')
-            msgMods = await self.client.wait_for('message', check=check)
+            msgMods = await self.bot.wait_for('message', check=check)
             sqlMods = ("UPDATE cars SET Mods = ? WHERE Car = ?")
             valMods = (msgMods.content, model)
 
