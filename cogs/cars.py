@@ -143,8 +143,8 @@ class Cars(commands.Cog):
         embed = discord.Embed(title="Car Info", description="Check out this " + ''.join(makeandmodel) + "!", color=0xFFD414)
 
 
-        if cur.fetchone() is not None:
-            embed.add_field(name="Make and Model", value=''.join(cur.fetchone()), inline=True)
+        if makeandmodel[0] is not None:
+            embed.add_field(name="Make and Model", value=''.join(makeandmodel), inline=True)
 
         
         cur.execute(f"SELECT Year FROM cars WHERE UserID = {userid}")
