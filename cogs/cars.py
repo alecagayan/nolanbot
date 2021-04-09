@@ -132,15 +132,43 @@ class Cars(commands.Cog):
         else:
             userid = member.id
 
-        cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
-        rows = cur.fetchall()
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
+        makeandmodel = cur.fetchone()
 
-        for row in rows:
-            await ctx.send(row)
+        embed = discord.Embed(title="Car Info", description="Check out this " + ''.join(makeandmodel) + "!", color=0xFFD414)
 
-        embed = discord.Embed(title="Available Setup Commands", description="Need help? Look below", color=embedColor)
+        if cur.fetchone() is not None:
+            embed.add_field(name="Make and Model", value=''.join(cur.fetchone()), inline=True)
 
-        db.commit()
+        cur.execute(f"SELECT Year FROM cars WHERE UserID = {userid}")
+        modelyear = cur.fetchone()
+        print(modelyear)
+        print(type(modelyear))
+        if modelyear[0] is not None:
+            embed.add_field(name="Model Year", value=''.join(modelyear), inline=True)
+
+        cur.execute(f"SELECT Color FROM cars WHERE UserID = {userid}")
+        carcolor = cur.fetchone()
+        if carcolor[0] is not None:
+            embed.add_field(name="Color", value=''.join(carcolor), inline=True)
+
+        cur.execute(f"SELECT Miles FROM cars WHERE UserID = {userid}")
+        carmiles = cur.fetchone()
+        if carmiles[0] is not None:
+            embed.add_field(name="Mileage", value=''.join(carmiles), inline=True)
+
+        cur.execute(f"SELECT Mods FROM cars WHERE UserID = {userid}")
+        carmods = cur.fetchone()
+        if carmods[0] is not None:
+            embed.add_field(name="Mods", value=''.join(carmods), inline=True)
+
+        cur.execute(f"SELECT Photo FROM cars WHERE UserID = {userid}")
+        carphoto = cur.fetchone()
+        if carphoto[0] is not None:
+            embed.set_image(url=''.join(carphoto))
+
+        embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time        db.commit()
+        await ctx.send(embed = embed)
         cur.close()
         db.close()
 
