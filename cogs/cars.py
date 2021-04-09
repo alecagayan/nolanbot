@@ -42,7 +42,7 @@ class Cars(commands.Cog):
         db.close()
 
     @commands.command()
-    async def carupdate(self, ctx, model):
+    async def carupdate(self, ctx, *, model):
 
         DB_PATH = "./data/db/database.db"
         BUILD_PATH = "./data/db/build.sql"
@@ -62,8 +62,10 @@ class Cars(commands.Cog):
         
             await ctx.send('Which model year is your car?')
             msgYear = await self.bot.wait_for('message', check=check)
+            print(msgYear.content)
             sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
             valYear = (msgYear.content, model)
+            print(valYear)
 
             await ctx.send('Which color is your car?')
             msgColor = await self.bot.wait_for('message', check=check)
@@ -82,6 +84,7 @@ class Cars(commands.Cog):
 
         if result is not None:
             cur.execute(sqlYear, valYear)
+            print(valYear)
             cur.execute(sqlColor, valColor)
             cur.execute(sqlMiles, valMiles)
             cur.execute(sqlMods, valMods)
