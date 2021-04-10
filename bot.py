@@ -79,8 +79,7 @@ async def on_ready():
                 Extra2 text,
                 Extra3 text,
                 Extra4 text,
-                Extra5 text
-                AsOf text DEFAULT CURRENT_TIMESTAMP
+                Extra5 text DEFAULT CURRENT_TIMESTAMP
                 );''')
 
 

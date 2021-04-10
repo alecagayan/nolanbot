@@ -135,47 +135,68 @@ class Cars(commands.Cog):
         cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
         rows = cur.fetchall()
 
-        cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
-        makeandmodel = cur.fetchone()
+        for row in rows:
+            UserID = row[0]
+            carmake = row[1]
+            carphoto = row[2]
+            carcolor = row[3]
+            caryear = row[4]
+            carmiles = row[5]
+            carmods = row[6]
 
-        
+            embed = discord.Embed(title="Car Info", description="Check out this " + ''.join(carmake) + "!", color=0xFFD414)
 
-        embed = discord.Embed(title="Car Info", description="Check out this " + ''.join(makeandmodel) + "!", color=0xFFD414)
+            if carmake is not None:
+                embed.add_field(name="Make and Model", value=''.join(carmake), inline=True)
+
+            if caryear is not None:
+                embed.add_field(name="Model Year", value=''.join(caryear), inline=True)
+
+            if carcolor is not None:
+                embed.add_field(name="Color", value=''.join(carcolor), inline=True)
+
+            if carmiles is not None:
+                embed.add_field(name="Mileage", value=''.join(carmiles), inline=True)
+
+            if carmods is not None:
+                embed.add_field(name="Mods", value=''.join(carmods), inline=True)
+
+            if carphoto is not None:
+                embed.set_image(url=''.join(carphoto))
+
+            embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+            await ctx.send(embed = embed)
 
 
-        if makeandmodel[0] is not None:
-            embed.add_field(name="Make and Model", value=''.join(makeandmodel), inline=True)
 
-        
-        cur.execute(f"SELECT Year FROM cars WHERE UserID = {userid}")
-        modelyear = cur.fetchone()
-        print(modelyear)
-        print(type(modelyear))
-        if modelyear[0] is not None:
-            embed.add_field(name="Model Year", value=''.join(modelyear), inline=True)
 
-        cur.execute(f"SELECT Color FROM cars WHERE UserID = {userid}")
-        carcolor = cur.fetchone()
-        if carcolor[0] is not None:
-            embed.add_field(name="Color", value=''.join(carcolor), inline=True)
 
-        cur.execute(f"SELECT Miles FROM cars WHERE UserID = {userid}")
-        carmiles = cur.fetchone()
-        if carmiles[0] is not None:
-            embed.add_field(name="Mileage", value=''.join(carmiles), inline=True)
 
-        cur.execute(f"SELECT Mods FROM cars WHERE UserID = {userid}")
-        carmods = cur.fetchone()
-        if carmods[0] is not None:
-            embed.add_field(name="Mods", value=''.join(carmods), inline=True)
 
-        cur.execute(f"SELECT Photo FROM cars WHERE UserID = {userid}")
-        carphoto = cur.fetchone()
-        if carphoto[0] is not None:
-            embed.set_image(url=''.join(carphoto))
 
-        embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time        db.commit()
-        await ctx.send(embed = embed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         cur.close()
         db.close()
 
