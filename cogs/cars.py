@@ -18,6 +18,9 @@ class Cars(commands.Cog):
         embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
         embed1.add_field(name="carupdate <same make and model as setup>", value="Add info about your car to the database", inline=False)
         embed1.add_field(name="car <member/none>", value="Look up your own or someone else's car!", inline=False)
+        embed1.add_field(name="STEP BY STEP INSTRUCTIONS", value="Step 1: run `carsetup <make and model> ", inline=False)
+
+
         embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
         await ctx.send(embed=embed1)
 

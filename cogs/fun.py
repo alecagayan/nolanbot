@@ -149,6 +149,16 @@ class Fun(commands.Cog):
             return await ctx.send("This server does not have a avatar...")
         await ctx.send(ctx.guild.icon_url_as(size=1024))
 
+    @commands.guild_only()
+    @commands.command()
+    async def owo(self, ctx):
+        await ctx.send('owo')    
+
+    @commands.guild_only()
+    @commands.command()
+    async def uwu(self, ctx):
+        await ctx.send('uwu')
+
     @commands.command()
     async def hug(self, ctx, member: discord.Member = None, member2: discord.Member = None, member3: discord.Member = None):
         """Hug someone on the server <3"""
