@@ -137,10 +137,10 @@ class Pets(commands.Cog):
                 embed.add_field(name="Name", value=''.join(petname), inline=True)
 
             if pettype is not None:
-                embed.add_field(name="Model Year", value=''.join(pettype), inline=True)
+                embed.add_field(name="Pet Type", value=''.join(pettype), inline=True)
 
             if petage is not None:
-                embed.add_field(name="Color", value=''.join(petage), inline=True)
+                embed.add_field(name="Age", value=''.join(petage), inline=True)
 
             if petphoto is not None:
                 embed.set_image(url=''.join(petphoto))
