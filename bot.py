@@ -51,6 +51,7 @@ client.load_extension("cogs.poll")
 client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
 client.load_extension("cogs.cars")
+client.load_extension("cogs.pets")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.music")
 
@@ -82,6 +83,16 @@ async def on_ready():
                 Extra5 text DEFAULT CURRENT_TIMESTAMP
                 );''')
 
+    cur.execute('''
+                CREATE TABLE IF NOT EXISTS pets (
+                UserID integer,
+                Pet text,
+                Photo text,
+                Type text,
+                Age text,
+                Mods text,
+                AsOf text DEFAULT CURRENT_TIMESTAMP
+                );''')
 
     print("Bot online!\n")
     print("Discord.py API version:", discord.__version__)

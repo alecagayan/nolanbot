@@ -170,36 +170,6 @@ class Cars(commands.Cog):
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
             await ctx.send(embed = embed)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         cur.close()
         db.close()
 
