@@ -45,6 +45,28 @@ class Pets(commands.Cog):
         db.close()
 
     @commands.command()
+    async def rmpet(self, ctx, *, pet):
+        DB_PATH = "./data/db/database.db"
+        BUILD_PATH = "./data/db/build.sql"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        cur.execute(f"SELECT Pet FROM pets WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+
+        sqlDel = ("DELETE FROM WHERE Pet = ?")
+        valDel = (pet)
+
+        db.commit()
+        await ctx.send('Pet removed!')
+
+        cur.close()
+        db.close()
+
+
+
+    @commands.command()
     async def petupdate(self, ctx, *, pet):
 
         DB_PATH = "./data/db/database.db"
