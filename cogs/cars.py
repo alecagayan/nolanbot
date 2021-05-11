@@ -44,6 +44,30 @@ class Cars(commands.Cog):
         cur.close()
         db.close()
 
+    
+    @commands.command()
+    async def rmcar(self, ctx, *, model):
+        DB_PATH = "./data/db/database.db"
+        BUILD_PATH = "./data/db/build.sql"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+
+        sqlDel = (f"DELETE FROM cars WHERE Car = ? AND UserID = {ctx.message.author.id}")
+        valDel = (model)
+
+        await ctx.send('Car removed!')
+        print(sqlDel)
+        print(valDel)
+        cur.execute(sqlDel, [valDel])
+        db.commit()
+
+        cur.close()
+        db.close()
+
     @commands.command()
     async def carupdate(self, ctx, *, model):
 
