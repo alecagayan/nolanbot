@@ -60,7 +60,7 @@ class Pets(commands.Cog):
 
         db.commit()
         await ctx.send('Pet removed!')
-        cur.execute(sqlDel, valDel)
+        cur.execute(sqlDel, str(valDel))
 
         cur.close()
         db.close()
