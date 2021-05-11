@@ -55,12 +55,14 @@ class Pets(commands.Cog):
         cur.execute(f"SELECT Pet FROM pets WHERE UserID = {ctx.message.author.id}")
         result = cur.fetchone()
 
-        sqlDel = ("DELETE FROM pets WHERE Pet = ?")
+        sqlDel = (f"DELETE FROM pets WHERE Pet = ? AND UserID = {ctx.message.author.id}")
         valDel = (pet)
 
-        db.commit()
         await ctx.send('Pet removed!')
+        print(sqlDel)
+        print(valDel)
         cur.execute(sqlDel, [valDel])
+        db.commit()
 
         cur.close()
         db.close()
