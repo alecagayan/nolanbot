@@ -18,6 +18,7 @@ class Cars(commands.Cog):
         embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Add a photo to the car database", inline=False)
         embed1.add_field(name="carupdate <same make and model as setup>", value="Add info about your car to the database", inline=False)
         embed1.add_field(name="car <member/none>", value="Look up your own or someone else's car!", inline=False)
+        embed1.add_field(name="rmcar <make and model>", value="Removes your car from the database", inline=False)
         embed1.add_field(name="STEP BY STEP INSTRUCTIONS", value="Step 1: run `carsetup <make and model> ", inline=False)
 
 
@@ -61,6 +62,18 @@ class Cars(commands.Cog):
         db.commit()
         cur.close()
         db.close()
+    
+    @commands.command()
+    async def carmembers(self, ctx):
+        DB_PATH = "./data/db/database.db"
+        BUILD_PATH = "./data/db/build.sql"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        carmembers = [car[0] for car in cur.execute("SELECT UserID FROM cars")]
+
+        await ctx.send(carmembers)
 
     @commands.command()
     async def carupdate(self, ctx, *, model):
