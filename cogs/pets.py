@@ -40,6 +40,34 @@ class Pets(commands.Cog):
         await ctx.send('Please run the `petphoto <petname>` command to add a photo!')
 
         cur.execute(sql, val)
+
+        def check(m):
+            return m.author == ctx.author
+
+        cur.execute(f"SELECT Pet FROM pets WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+        if result is None:
+            await ctx.send('Please set up a pet! use `!pethelp` to get some info!')
+
+        if result is not None:
+        
+            await ctx.send('What type of pet do you have? (eg. Dog)?')
+            msgType = await self.bot.wait_for('message', check=check)
+            sqlType = ("UPDATE pets SET Type = ? WHERE Pet = ?")
+            valType = (msgType.content, pet)
+
+
+            await ctx.send('How old is your pet?')
+            msgAge = await self.bot.wait_for('message', check=check)
+            sqlAge = ("UPDATE pets SET Age = ? WHERE Pet = ?")
+            valAge = (msgAge.content, pet)
+
+        if result is not None:
+            cur.execute(sqlType, valType)
+            cur.execute(sqlAge, valAge)
+
+        await ctx.send('Set!')
+        
         db.commit()
         cur.close()
         db.close()
