@@ -41,6 +41,47 @@ class Cars(commands.Cog):
         await ctx.send('Please run the `carphoto <make and model>` command to add a photo!')
 
         cur.execute(sql, val)
+
+        def check(m):
+            return m.author == ctx.author
+
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+        if result is None:
+            await ctx.send('Please set up a car! use `!carhelp` to get some info!')
+
+        if result is not None:
+        
+            await ctx.send('Which model year is your car?')
+            msgYear = await self.bot.wait_for('message', check=check)
+            print(msgYear.content)
+            sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
+            valYear = (msgYear.content, model)
+            print(valYear)
+
+            await ctx.send('Which color is your car?')
+            msgColor = await self.bot.wait_for('message', check=check)
+            sqlColor = ("UPDATE cars SET Color = ? WHERE Car = ?")
+            valColor = (msgColor.content, model)
+
+            await ctx.send('How many miles does your car have?')
+            msgMiles = await self.bot.wait_for('message', check=check)
+            sqlMiles = ("UPDATE cars SET Miles = ? WHERE Car = ?")
+            valMiles = (msgMiles.content, model)
+
+            await ctx.send('Which mods have you done to your car? Separate them with a comma!')
+            msgMods = await self.bot.wait_for('message', check=check)
+            sqlMods = ("UPDATE cars SET Mods = ? WHERE Car = ?")
+            valMods = (msgMods.content, model)
+
+        if result is not None:
+            cur.execute(sqlYear, valYear)
+            cur.execute(sqlColor, valColor)
+            cur.execute(sqlMiles, valMiles)
+            cur.execute(sqlMods, valMods)
+
+        await ctx.send('Set!')
+
         db.commit()
         cur.close()
         db.close()
@@ -118,7 +159,6 @@ class Cars(commands.Cog):
 
         if result is not None:
             cur.execute(sqlYear, valYear)
-            print(valYear)
             cur.execute(sqlColor, valColor)
             cur.execute(sqlMiles, valMiles)
             cur.execute(sqlMods, valMods)
