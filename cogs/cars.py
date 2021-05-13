@@ -54,10 +54,8 @@ class Cars(commands.Cog):
         
             await ctx.send('Which model year is your car?')
             msgYear = await self.bot.wait_for('message', check=check)
-            print(msgYear.content)
             sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
             valYear = (msgYear.content, model)
-            print(valYear)
 
             await ctx.send('Which color is your car?')
             msgColor = await self.bot.wait_for('message', check=check)
