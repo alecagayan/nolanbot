@@ -89,7 +89,7 @@ class Birthday(commands.Cog):
         day = today.day
         month = today.month
 
-        if todaysdate == None:
+        if todaysdate is None:
             todaysdate = str(today.month) + '/' + str(today.day)
 
         name = str(ctx.author.id)
