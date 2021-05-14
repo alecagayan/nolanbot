@@ -67,6 +67,7 @@ class Fun(commands.Cog):
         elif choiceType == "(Negative)":
             prediction = random.choice(["Don't count on it ", 
                                         "My reply is no ", 
+                                        "Not with that attitude ",
                                         "My sources say no ", 
                                         "Outlook not so good ", 
                                         "Very doubtful "]) + ":8ball:"
