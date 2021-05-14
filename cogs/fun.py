@@ -104,7 +104,7 @@ class Fun(commands.Cog):
         insult = random.choice(["you oil-leaking shitbox",
                                 "you're a few gears short of a 6 speed aren't you",
                                 "you better watch your damn mouth before I take you to gapplebees"])
-        if(member == None):
+        if(member is None):
             await ctx.send(insult)
         else:
             await ctx.send(member.mention, insult)
