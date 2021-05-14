@@ -21,10 +21,6 @@ class Cars(commands.Cog):
         embed1.add_field(name="rmcar <make and model>", value="Removes your car from the database", inline=False)
         embed1.add_field(name="STEP BY STEP INSTRUCTIONS", value="Step 1: run `carsetup <make and model> ", inline=False)
 
-
-        embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
-        await ctx.send(embed=embed1)
-
     @commands.command()
     async def carsetup(self, ctx, *, model):    
         DB_PATH = "./data/db/database.db"
