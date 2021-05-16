@@ -14,7 +14,6 @@ class Pets(commands.Cog):
     @commands.command()
     async def petsetup(self, ctx, *, pet):    
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -62,7 +61,6 @@ class Pets(commands.Cog):
     @commands.command()
     async def rmpet(self, ctx, *, pet):
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -83,7 +81,6 @@ class Pets(commands.Cog):
     async def petupdate(self, ctx, *, pet):
 
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -123,7 +120,6 @@ class Pets(commands.Cog):
 
         photo = ctx.message.attachments[0]
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -146,7 +142,6 @@ class Pets(commands.Cog):
     @commands.command()
     async def pet(self, ctx, member: discord.Member = None):
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()

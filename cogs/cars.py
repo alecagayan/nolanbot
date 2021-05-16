@@ -24,7 +24,6 @@ class Cars(commands.Cog):
     @commands.command()
     async def carsetup(self, ctx, *, model):    
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -84,7 +83,6 @@ class Cars(commands.Cog):
     @commands.command()
     async def rmcar(self, ctx, *, model):
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -101,7 +99,6 @@ class Cars(commands.Cog):
     @commands.command()
     async def carmembers(self, ctx):
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -114,7 +111,6 @@ class Cars(commands.Cog):
     async def carupdate(self, ctx, *, model):
 
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -167,7 +163,6 @@ class Cars(commands.Cog):
 
         photo = ctx.message.attachments[0]
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -190,7 +185,6 @@ class Cars(commands.Cog):
     @commands.command()
     async def car(self, ctx, member: discord.Member = None):
         DB_PATH = "./data/db/database.db"
-        BUILD_PATH = "./data/db/build.sql"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
