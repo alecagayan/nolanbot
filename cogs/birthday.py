@@ -86,8 +86,8 @@ class Birthday(commands.Cog):
         with open('birthdays.json', 'r') as f:
             bd_names = json.load(f)
         today = datetime.datetime.today()
-        day = today.day
-        month = today.month
+#unused        day = today.day
+#unused        month = today.month
 
         if todaysdate is None:
             todaysdate = str(today.month) + '/' + str(today.day)
@@ -116,7 +116,7 @@ class Birthday(commands.Cog):
         for name in bd_names:
             #member = ctx.guild.get_member(name)
             bdaylist.append(str(name) + str(bd_names[name]) + '\n')
-            tosend = ('\n'.join(map(str, bdaylist)))
+#unused            tosend = ('\n'.join(map(str, bdaylist)))
 
             await ctx.send(bdaylist)
 

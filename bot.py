@@ -429,6 +429,8 @@ async def dbhelp(ctx):
     embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
     message = await ctx.send(embed=embed1)
+
+    await ctx.send("**Please read the wiki page for more information: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
     # getting the message object for editing and reacting
 
     await message.add_reaction("1️⃣")
