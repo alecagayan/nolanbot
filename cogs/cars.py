@@ -22,7 +22,7 @@ class Cars(commands.Cog):
         embed1.add_field(name="STEP BY STEP INSTRUCTIONS", value="Step 1: run `carsetup <make and model> ", inline=False)
 
     @commands.command()
-    async def carsetup(self, ctx, *, model):    
+    async def carsetup(self, ctx, *, model = None):    
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
