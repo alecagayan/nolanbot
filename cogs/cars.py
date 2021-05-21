@@ -174,13 +174,17 @@ class Cars(commands.Cog):
     @commands.command()
     async def carphoto(self, ctx, *, model = None):
 
-        photo = ctx.message.attachments[0]
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
         if model is not None:
+            if ctx.message.attachments[0] is not None:
+                photo = ctx.message.attachments[0]
+            else:
+                await ctx.send("**Make sure to attach a photo. More info at: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+
 
             cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
             result = cur.fetchone()
