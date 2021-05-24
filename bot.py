@@ -13,6 +13,7 @@ import urllib.request
 import pandas as pd
 import asyncio
 import time
+import wikipedia
 import plotly.express as px
 from discord.ext.commands import Bot
 from discord.ext import commands
@@ -171,6 +172,11 @@ async def server(ctx):
     embed.add_field(name='Creation', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
     await ctx.send(embed=embed)
+
+@client.command()
+async def wiki(ctx, *, query):
+    newquery = wikipedia.suggest(query)
+    await ctx.send(wikipedia.summary(newquery))
 
 @client.command(aliases=["fancy"])
 async def fancify(ctx, *, text):
@@ -456,4 +462,3 @@ async def dbhelp(ctx):
             break
 
 client.run(config.bbtoken)
-
