@@ -176,7 +176,14 @@ async def server(ctx):
 @client.command()
 async def wiki(ctx, *, query):
     newquery = wikipedia.suggest(query)
-    await ctx.send(wikipedia.summary(newquery))
+    if(newquery is not None):
+        query = newquery
+
+    embed=discord.Embed(title=wikipedia.page(query).title, url=wikipedia.page(query).url)
+    embed.set_thumbnail(url=wikipedia.page(query).images[0])
+    embed.add_field(name="Summary", value=wikipedia.summary(query, sentences=2), inline=False)
+    await ctx.send(embed=embed)
+
 
 @client.command(aliases=["fancy"])
 async def fancify(ctx, *, text):
