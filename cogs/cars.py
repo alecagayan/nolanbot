@@ -154,7 +154,7 @@ class Cars(commands.Cog):
 
                 await ctx.send('Which mods have you done to your car? Separate them with a comma!')
                 msgMods = await self.bot.wait_for('message', check=check)
-                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? WHERE UserID = {ctx.message.author.id}")
+                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
                 valMods = (msgMods.content, model)
 
             if result is not None:
