@@ -30,7 +30,7 @@ class Profiles(commands.Cog):
         db.close()
     
     @commands.command()
-    async def pbio(self, ctx, *, bio)
+    async def pbio(self, ctx, *, bio):
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
@@ -40,7 +40,7 @@ class Profiles(commands.Cog):
             cur.execute(f"SELECT Bio FROM profiles WHERE UserID = {ctx.message.author.id}")
             result = cur.fetchone()
 
-            sqlMods = ("UPDATE cars SET Mods = ? WHERE Car = ?")
+            sql = ("UPDATE profiles SET Mods = ? WHERE Car = ?")
 
 
         else:
