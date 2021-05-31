@@ -36,11 +36,11 @@ class Profiles(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
     
-            if(len(bio) < 512):
-                cur.execute(f"SELECT Bio FROM profiles WHERE UserID = {ctx.message.author.id}")
-                result = cur.fetchone()
+        if(len(bio) < 512):
+            cur.execute(f"SELECT Bio FROM profiles WHERE UserID = {ctx.message.author.id}")
+            result = cur.fetchone()
 
-                sql = ("UPDATE profiles SET Mods = ? WHERE Car = ?")
+            sql = ("UPDATE profiles SET Mods = ? WHERE Car = ?")
 
 
     
