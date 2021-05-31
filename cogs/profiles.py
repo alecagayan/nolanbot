@@ -39,7 +39,7 @@ class Profiles(commands.Cog):
         if(len(bio) < 512):
 
             sql = (f"UPDATE profiles SET Bio = ? WHERE UserID = {ctx.message.author.id}")
-            val = (bio)
+            val = (bio,)
             cur.execute(sql, val)
             db.commit()
         cur.close()
