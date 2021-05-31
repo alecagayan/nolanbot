@@ -23,7 +23,7 @@ class Profiles(commands.Cog):
 
         if result is None:
             sql = ("INSERT INTO profiles(UserID, Name) VALUES(?,?)")
-            val = (ctx.message.author.id, model)
+            val = (ctx.message.author.id, name)
             cur.execute(sql, val)
             db.commit()
         cur.close()
