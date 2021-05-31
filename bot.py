@@ -53,6 +53,7 @@ client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
 client.load_extension("cogs.cars")
 client.load_extension("cogs.pets")
+client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.music")
 

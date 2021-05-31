@@ -7,7 +7,7 @@ from os.path import isfile
 from sqlite3 import connect
 
 
-class Cars(commands.Cog):
+class Profiles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -42,4 +42,4 @@ class Cars(commands.Cog):
     
     
 def setup(bot):
-    bot.add_cog(Cars(bot))
+    bot.add_cog(Profiles(bot))
