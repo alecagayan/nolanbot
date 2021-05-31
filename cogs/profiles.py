@@ -64,15 +64,13 @@ class Profiles(commands.Cog):
             UserID = row[0]
             name = row[1]
             bio = row[2]
-            pettype = row[3]
-            petage = row[4]
 
             embed = discord.Embed(title="Pet Info", description="not sure what to put here", color=0xFFD414)
 
-            if petname is not None:
+            if name is not None:
                 embed.add_field(name="Name", value=''.join(name), inline=True)
 
-            if pettype is not None:
+            if bio is not None:
                 embed.add_field(name="Pet Type", value=''.join(bio), inline=True)
 
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
