@@ -95,6 +95,22 @@ async def on_ready():
                 AsOf text DEFAULT CURRENT_TIMESTAMP
                 );''')
 
+    cur.execute('''
+            CREATE TABLE IF NOT EXISTS profiles (
+            UserID integer,
+            Name text,
+            Bio text,
+            Pronouns text,
+            Age text,
+            Mods text,
+            Extra1 text,
+            Extra2 text,
+            Extra3 text,
+            Extra4 text,
+            Extra5 text,
+            AsOf text DEFAULT CURRENT_TIMESTAMP
+            );''')
+
     print("Bot online!\n")
     print("Discord.py API version:", discord.__version__)
     print("Python version:", platform.python_version())
@@ -124,7 +140,7 @@ async def hello(ctx):
 
 @client.command(aliases=['github', 'git'])
 async def commit(ctx):
-    await ctx.send('https://github.com/oopsie1412/donutbot')
+    await ctx.send('https://github.com/oopsie1412/nolanbot')
 
 @client.command(aliases=['game', 'presence'])
 async def setgame(self, ctx, *args):

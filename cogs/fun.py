@@ -7,11 +7,13 @@ import sr_api
 from discord.ext import commands
 from discord.ext.commands import clean_content
 
+
 def date(target, clock=True):
     """ Clock format using datetime.strftime() """
     if not clock:
         return target.strftime("%d %B %Y")
     return target.strftime("%d %B %Y, %H:%M")
+
 
 class Fun(commands.Cog):
     def __init__(self, bot):
@@ -25,7 +27,6 @@ class Fun(commands.Cog):
             channel = self.bot.get_channel(int(channelid))
             await channel.send(msg)
 
-    
     @commands.command()
     @commands.guild_only()
     async def vote(self, ctx, *, msg):
@@ -39,39 +40,45 @@ class Fun(commands.Cog):
     async def milk(self, ctx):
         await ctx.send("<:wat:733817269469315113> :milk: <:bignol:808398271453986816>")
 
-    @commands.command(aliases=['8ball']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
+    # THANK YOU SO MUCH TO https://github.com/SpectrixDev
+    @commands.command(aliases=['8ball'])
     async def eightball(self, ctx, *, _ballInput: clean_content):
         """extra generic just the way you like it"""
-        choiceType = random.choice(["(Affirmative)", "(Non-committal)", "(Negative)"])
+        choiceType = random.choice(
+            ["(Affirmative)", "(Non-committal)", "(Negative)"])
         if choiceType == "(Affirmative)":
-            prediction = random.choice(["It is certain ", 
-                                        "It is decidedly so ", 
-                                        "Without a doubt ", 
-                                        "Yes, definitely ", 
-                                        "You may rely on it ", 
+            prediction = random.choice(["It is certain ",
+                                        "It is decidedly so ",
+                                        "Without a doubt ",
+                                        "Yes, definitely ",
+                                        "You may rely on it ",
                                         "As I see it, yes ",
-                                        "Most likely ", 
-                                        "Outlook good ", 
-                                        "Yes ", 
+                                        "Most likely ",
+                                        "Outlook good ",
+                                        "Yes ",
                                         "Signs point to yes "]) + ":8ball:"
 
-            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0x3be801, description=prediction))
+            emb = (discord.Embed(title="Question: {}".format(
+                _ballInput), colour=0x3be801, description=prediction))
         elif choiceType == "(Non-committal)":
-            prediction = random.choice(["Reply hazy try again ", 
-                                        "Ask again later ", 
-                                        "Better not tell you now ", 
-                                        "Cannot predict now ", 
+            prediction = random.choice(["Reply hazy try again ",
+                                        "Ask again later ",
+                                        "Better not tell you now ",
+                                        "Cannot predict now ",
                                         "Concentrate and ask again "]) + ":8ball:"
-            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xff6600, description=prediction))
+            emb = (discord.Embed(title="Question: {}".format(
+                _ballInput), colour=0xff6600, description=prediction))
         elif choiceType == "(Negative)":
-            prediction = random.choice(["Don't count on it ", 
-                                        "My reply is no ", 
+            prediction = random.choice(["Don't count on it ",
+                                        "My reply is no ",
                                         "Not with that attitude ",
-                                        "My sources say no ", 
-                                        "Outlook not so good ", 
+                                        "My sources say no ",
+                                        "Outlook not so good ",
                                         "Very doubtful "]) + ":8ball:"
-            emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xE80303, description=prediction))
-        emb.set_author(name='Magic 8 ball', icon_url='https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
+            emb = (discord.Embed(title="Question: {}".format(
+                _ballInput), colour=0xE80303, description=prediction))
+        emb.set_author(name='Magic 8 ball',
+                       icon_url='https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
         await ctx.send(embed=emb)
 
     @commands.command()
@@ -135,11 +142,13 @@ class Fun(commands.Cog):
         finallyric = (lyric[:1020] + '...') if len(lyric) > 1020 else lyric
 
         embedColor = random.randint(0, 0xffffff)
-        embed = discord.Embed(title="Lyrics of " + response.title + " by " + response.author + ":", color=embedColor)
+        embed = discord.Embed(title="Lyrics of " + response.title +
+                              " by " + response.author + ":", color=embedColor)
         embed.set_thumbnail(url=response.thumbnail)
-        embed.add_field(name = response.title, value=finallyric, inline=True)
-        embed.add_field(name = 'Full lyrics: ', value=response.link, inline=False)
-        await ctx.send(embed = embed)
+        embed.add_field(name=response.title, value=finallyric, inline=True)
+        embed.add_field(name='Full lyrics: ',
+                        value=response.link, inline=False)
+        await ctx.send(embed=embed)
 
     @commands.guild_only()
     @commands.command(aliases=["servericon"])
@@ -152,7 +161,7 @@ class Fun(commands.Cog):
     @commands.guild_only()
     @commands.command()
     async def owo(self, ctx):
-        await ctx.send('owo')    
+        await ctx.send('owo')
 
     @commands.guild_only()
     @commands.command()
@@ -177,6 +186,6 @@ class Fun(commands.Cog):
             print('erroreeee: ' + e)
         return
 
+
 def setup(bot):
     bot.add_cog(Fun(bot))
-
