@@ -39,13 +39,13 @@ class Pets(commands.Cog):
         
             await ctx.send('What type of pet do you have? (eg. Dog)?')
             msgType = await self.bot.wait_for('message', check=check)
-            sqlType = ("UPDATE pets SET Type = ? WHERE Pet = ?")
+            sqlType = (f"UPDATE pets SET Type = ? WHERE Pet = ? AND UserID = {ctx.message.author.id}")
             valType = (msgType.content, pet)
 
 
             await ctx.send('How old is your pet?')
             msgAge = await self.bot.wait_for('message', check=check)
-            sqlAge = ("UPDATE pets SET Age = ? WHERE Pet = ?")
+            sqlAge = (f"UPDATE pets SET Age = ? WHERE Pet = ? AND UserID = {ctx.message.author.id}")
             valAge = (msgAge.content, pet)
 
         if result is not None:
@@ -97,13 +97,13 @@ class Pets(commands.Cog):
         
             await ctx.send('What type of pet do you have? (eg. Dog)?')
             msgType = await self.bot.wait_for('message', check=check)
-            sqlType = ("UPDATE pets SET Type = ? WHERE Pet = ?")
+            sqlType = (f"UPDATE pets SET Type = ? WHERE Pet = ? AND UserID = {ctx.message.author.id}")
             valType = (msgType.content, pet)
 
 
             await ctx.send('How old is your pet?')
             msgAge = await self.bot.wait_for('message', check=check)
-            sqlAge = ("UPDATE pets SET Age = ? WHERE Pet = ?")
+            sqlAge = (f"UPDATE pets SET Age = ? WHERE Pet = ? AND UserID = {ctx.message.author.id}")
             valAge = (msgAge.content, pet)
 
         if result is not None:
@@ -128,7 +128,7 @@ class Pets(commands.Cog):
         result = cur.fetchone()
         if result is None:
             await ctx.send('Please set up a pet! use `!pethelp` to get some info!')
-        sql = ("UPDATE pets SET Photo = ? WHERE Pet = ?")
+        sql = (f"UPDATE pets SET Photo = ? WHERE Pet = ? AND UserID = {ctx.message.author.id}")
         val = (photo.url, model)
 
         if result is not None:
