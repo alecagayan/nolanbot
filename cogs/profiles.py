@@ -45,6 +45,22 @@ class Profiles(commands.Cog):
         cur.close()
         db.close()
 
+    @commands.command(aliases=['pronouns'])
+    async def ppronouns(self, ctx, *, bio):
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+    
+        if(len(bio) < 512):
+
+            sql = (f"UPDATE profiles SET Pronouns = ? WHERE UserID = {ctx.message.author.id}")
+            val = (bio,)
+            cur.execute(sql, val)
+            db.commit()
+        cur.close()
+        db.close()
+
     @commands.command(aliases=['p'])
     async def profile(self, ctx, member: discord.Member = None):
         DB_PATH = "./data/db/database.db"
@@ -64,14 +80,18 @@ class Profiles(commands.Cog):
             UserID = row[0]
             name = row[1]
             bio = row[2]
+            pronouns = row[3]
 
             embed = discord.Embed(title="Pet Info", description="not sure what to put here", color=0xFFD414)
 
             if name is not None:
                 embed.add_field(name="Name", value=''.join(name), inline=True)
 
+            if pronouns is not None:
+                embed.add_field(name="Pronouns", value=''.join(pronouns), inline=True)
+
             if bio is not None:
-                embed.add_field(name="Pet Type", value=''.join(bio), inline=True)
+                embed.add_field(name="Bio", value=''.join(bio), inline=True)
 
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
             await ctx.send(embed = embed)
