@@ -67,7 +67,7 @@ class Profiles(commands.Cog):
             pettype = row[3]
             petage = row[4]
 
-            embed = discord.Embed(title="Pet Info", description="Check out " + ''.join(petname) + "!", color=0xFFD414)
+            embed = discord.Embed(title="Pet Info", description="not sure what to put here", color=0xFFD414)
 
             if petname is not None:
                 embed.add_field(name="Name", value=''.join(name), inline=True)
