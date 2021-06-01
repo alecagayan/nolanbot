@@ -159,7 +159,7 @@ class Pets(commands.Cog):
             petname = row[1]
             petphoto = row[2]
             pettype = row[3]
-            petage = row[6]
+            petage = row[4]
 
             embed = discord.Embed(title="Pet Info", description="Check out " + ''.join(petname) + "!", color=0xFFD414)
 

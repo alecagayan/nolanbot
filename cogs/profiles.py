@@ -98,7 +98,7 @@ class Profiles(commands.Cog):
             name = row[1]
             bio = row[2]
             pronouns = row[3]
-            link = row[4]
+            link = row[6]
 
             embed = discord.Embed(title="Pet Info", description="not sure what to put here", color=0xFFD414)
 
