@@ -491,7 +491,7 @@ async def dbhelp(ctx):
                 await message.edit(embed=embed2)
                 await message.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "3️⃣":
-                await message.edit(embed=embed2)
+                await message.edit(embed=embed3)
                 await message.remove_reaction(reaction, user)
 
 
