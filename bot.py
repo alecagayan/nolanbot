@@ -442,7 +442,7 @@ async def help(ctx):
 
 @client.command()
 async def dbhelp(ctx):
-    embed1 = discord.Embed(title="Available Setup Commands (1/2)", description="Need database help? Look below", color=0xFFD414)
+    embed1 = discord.Embed(title="Available Setup Commands (1/3)", description="Need database help? Look below", color=0xFFD414)
     embed1.add_field(name="carsetup <make and model>", value="Nolanbot will guide you through the setup process for a new car and will ask for information such as mileage, model year, color, and modifications", inline=False)
     embed1.add_field(name="carphoto <same make and model as setup> <photo>", value="Update your car's photo or add a photo for the first time. Make sure to attach a photo with the message", inline=False)
     embed1.add_field(name="carupdate <same make and model as setup>", value="Nolanbot will help you update information on your car such as mileage, model year, color, and modifications", inline=False)
@@ -450,13 +450,20 @@ async def dbhelp(ctx):
     embed1.add_field(name="rmcar <make and model>", value="Nolanbot will remove your car from the database", inline=False)
     embed1.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
-    embed2 = discord.Embed(title="Available Setup Commands (2/2)", description="Need database help? Look below", color=0xFFD414)
+    embed2 = discord.Embed(title="Available Setup Commands (2/3)", description="Need database help? Look below", color=0xFFD414)
     embed2.add_field(name="petsetup <name>", value="Nolanbot will guide you through the setup process for a new pet and will ask for information such as its age and pet type", inline=False)
     embed2.add_field(name="petphoto <same name as setup> <photo>", value="Update your pet's photo or add a photo for the first time. Make sure to attach a photo with the message", inline=False)
     embed2.add_field(name="petupdate <same name as setup>", value="Nolanbot will help you update information on your pet such as its age and pet type", inline=False)
     embed2.add_field(name="pet <member/none>", value="Nolanbot will look up your pet or someone else's pet in the pet database", inline=False)
     embed2.add_field(name="rmpet <name>", value="Nolanbot will remove your pet from the database", inline=False)
     embed2.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
+
+    embed3 = discord.Embed(title="Available Setup Commands (3/3)", description="Need database help? Look below", color=0xFFD414)
+    embed3.add_field(name="psetup <name>", value="Nolanbot will guide you through the setup process for a new profile", inline=False)
+    embed3.add_field(name="pbio", value="Add a bio to your profile. Keep this under 512 characters", inline=False)
+    embed3.add_field(name="ppronouns", value="Add pronouns to your bio", inline=False)
+    embed3.add_field(name="plink", value="Add a URL to your bio. Keep this under 256 characters", inline=False)
+    embed3.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
 
     message = await ctx.send(embed=embed1)
 
@@ -465,9 +472,11 @@ async def dbhelp(ctx):
 
     await message.add_reaction("1️⃣")
     await message.add_reaction("2️⃣")
+    await message.add_reaction("3️⃣")
+
 
     def check(reaction, user):
-        return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣"]
+        return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣"]
 
     while True:
         try:
@@ -481,6 +490,10 @@ async def dbhelp(ctx):
             elif str(reaction.emoji) == "2️⃣":
                 await message.edit(embed=embed2)
                 await message.remove_reaction(reaction, user)
+            elif str(reaction.emoji) == "3️⃣":
+                await message.edit(embed=embed2)
+                await message.remove_reaction(reaction, user)
+
 
         except asyncio.TimeoutError:
             break
