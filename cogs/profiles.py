@@ -61,6 +61,23 @@ class Profiles(commands.Cog):
         cur.close()
         db.close()
 
+    
+    @commands.command()
+    async def plink(self, ctx, *, link):
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+    
+        if(len(link) < 256):
+
+            sql = (f"UPDATE profiles SET Extra1 = ? WHERE UserID = {ctx.message.author.id}")
+            val = (link,)
+            cur.execute(sql, val)
+            db.commit()
+        cur.close()
+        db.close()
+
     @commands.command(aliases=['p'])
     async def profile(self, ctx, member: discord.Member = None):
         DB_PATH = "./data/db/database.db"
@@ -81,6 +98,7 @@ class Profiles(commands.Cog):
             name = row[1]
             bio = row[2]
             pronouns = row[3]
+            link = row[4]
 
             embed = discord.Embed(title="Pet Info", description="not sure what to put here", color=0xFFD414)
 
@@ -92,6 +110,10 @@ class Profiles(commands.Cog):
 
             if bio is not None:
                 embed.add_field(name="Bio", value=''.join(bio), inline=True)
+
+            if link is not None:
+                embed.add_field(name="Bio", value=''.join(link), inline=True)
+
 
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
             await ctx.send(embed = embed)
