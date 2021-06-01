@@ -112,7 +112,7 @@ class Profiles(commands.Cog):
                 embed.add_field(name="Bio", value=''.join(bio), inline=True)
 
             if link is not None:
-                embed.add_field(name="Bio", value=''.join(link), inline=True)
+                embed.add_field(name="Link", value=''.join(link), inline=True)
 
 
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
