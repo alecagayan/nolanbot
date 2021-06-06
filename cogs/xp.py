@@ -46,9 +46,15 @@ class Xp(commands.Cog):
             lvl = xpfetch[0]
         else:
             lvl = 0
+        cur.execute(f"SELECT XPLock FROM xp WHERE UserID = {message.author.id}")
+        xplockfetch = cur.fetchone()
+        if xplockfetch is not None:
+            xplock = xplockfetch[0]
+        else:
+            xplock = ((datetime.utcnow()-timedelta(seconds=60)).isoformat())
 
-        #if datetime.utcnow() > datetime.fromisoformat(xplock):
-        await self.add_xp(message, xp, lvl)
+        if datetime.utcnow() > datetime.fromisoformat(xplock):
+            await self.add_xp(message, xp, lvl)
 
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
@@ -94,7 +100,16 @@ class Xp(commands.Cog):
 
         cur.execute(f"SELECT * FROM xp WHERE UserID = {ctx.author.id}")
         res = cur.fetchall()
-        await ctx.send(res)
+
+        for row in res:
+            UserID = row[0]
+            xp = row[1]
+            lvl = row[2]
+
+        embed = discord.Embed(title="XP", description="XP for " + ''.join(UserID), color=0xFFD414)
+        embed.add_field(name="XP", value=''.join(xp), inline=True)
+        embed.add_field(name="Level", value=''.join(lvl), inline=True)
+        await ctx.send(embed = embed)
 
         cur.close()
         db.close()
