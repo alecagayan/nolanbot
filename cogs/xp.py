@@ -94,7 +94,7 @@ class Xp(commands.Cog):
             await self.process_xp(message)
 
     @commands.command()
-    async def xp(self, ctx, member: discord.Member = None):
+    async def xp(self, ctx, *, member: discord.Member = None):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
@@ -110,12 +110,15 @@ class Xp(commands.Cog):
             UserID = row[0]
             xp = row[1]
             lvl = row[2]
+            
+        if UserID != None:
 
-        embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
-        embed.add_field(name="XP", value=str(xp), inline=True)
-        embed.add_field(name="Level", value=str(lvl), inline=True)
-        await ctx.send(embed = embed)
-
+            embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
+            embed.add_field(name="XP", value=str(xp), inline=True)
+            embed.add_field(name="Level", value=str(lvl), inline=True)
+            await ctx.send(embed = embed)
+        else:
+            await ctx.send("This user has no XP!")
         cur.close()
         db.close()
 
