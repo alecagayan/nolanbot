@@ -55,6 +55,7 @@ client.load_extension("cogs.cars")
 client.load_extension("cogs.pets")
 client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
+client.load_extension("cogs.xp")
 client.load_extension("cogs.music")
 
 
@@ -111,6 +112,9 @@ async def on_ready():
             Extra5 text,
             AsOf text DEFAULT CURRENT_TIMESTAMP
             );''')
+    db.commit()
+    cur.close()
+    db.close()
 
     print("Bot online!\n")
     print("Discord.py API version:", discord.__version__)
