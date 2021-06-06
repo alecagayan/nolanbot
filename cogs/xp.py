@@ -35,13 +35,15 @@ class Xp(commands.Cog):
         cur = db.cursor()
 
         cur.execute(f"SELECT XP FROM xp WHERE UserID = {message.author.id}")
-        if cur.fetchone() is not None:
-            xp = cur.fetchone()[0]
+        xpfetch = cur.fetchone()
+        if xpfetch is not None:
+            xp = xpfetch[0]
         else:
             xp = 0
         cur.execute(f"SELECT Level FROM xp WHERE UserID = {message.author.id}")
-        if cur.fetchone() is not None:
-            lvl = cur.fetchone()[0]
+        lvlfetch = cur.fetchone()
+        if xpfetch is not None:
+            lvl = xpfetch[0]
         else:
             lvl = 0
 
@@ -92,8 +94,7 @@ class Xp(commands.Cog):
 
         cur.execute(f"SELECT * FROM xp WHERE UserID = {ctx.author.id}")
         res = cur.fetchall()
-        print(res)
-        await ctx.send(str(res))
+        await ctx.send(res)
 
         cur.close()
         db.close()
