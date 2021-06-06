@@ -94,11 +94,16 @@ class Xp(commands.Cog):
             await self.process_xp(message)
 
     @commands.command()
-    async def xp(self, ctx):
+    async def xp(self, ctx, member: discord.Member = None):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute(f"SELECT * FROM xp WHERE UserID = {ctx.author.id}")
+        if member is None:
+            userid = ctx.message.author.id
+        else:
+            userid = member.id
+
+        cur.execute(f"SELECT * FROM xp WHERE UserID = {userid}")
         res = cur.fetchall()
 
         for row in res:
