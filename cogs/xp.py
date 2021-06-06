@@ -106,13 +106,13 @@ class Xp(commands.Cog):
         cur.execute(f"SELECT * FROM xp WHERE UserID = {idmember}")
         res = cur.fetchall()
 
-        for row in res:
-            UserID = row[0]
-            xp = row[1]
-            lvl = row[2]
+        if len(res) != 0:
+        
+            for row in res:
+                UserID = row[0]
+                xp = row[1]
+                lvl = row[2]
             
-        if UserID != None:
-
             embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
             embed.add_field(name="XP", value=str(xp), inline=True)
             embed.add_field(name="Level", value=str(lvl), inline=True)
