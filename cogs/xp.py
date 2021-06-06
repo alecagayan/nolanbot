@@ -106,9 +106,9 @@ class Xp(commands.Cog):
             xp = row[1]
             lvl = row[2]
 
-        embed = discord.Embed(title="XP", description="XP for " + ''.join(UserID), color=0xFFD414)
-        embed.add_field(name="XP", value=''.join(xp), inline=True)
-        embed.add_field(name="Level", value=''.join(lvl), inline=True)
+        embed = discord.Embed(title="Server Level", description="Experience for " + str(UserID), color=0xFFD414)
+        embed.add_field(name="XP", value=str(xp), inline=True)
+        embed.add_field(name="Level", value=str(lvl), inline=True)
         await ctx.send(embed = embed)
 
         cur.close()
