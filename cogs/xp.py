@@ -99,11 +99,11 @@ class Xp(commands.Cog):
         cur = db.cursor()
 
         if member is None:
-            userid = ctx.message.author.id
+            memberid = ctx.message.author.id
         else:
-            userid = member.id
+            memberid = member.id
 
-        cur.execute(f"SELECT * FROM xp WHERE UserID = {userid}")
+        cur.execute(f"SELECT * FROM xp WHERE UserID = {memberid}")
         res = cur.fetchall()
 
         for row in res:
