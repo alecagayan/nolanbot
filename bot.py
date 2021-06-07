@@ -45,14 +45,15 @@ newUserMessage = 'testing!!!'
 
 def file_age_in_seconds(pathname):
     return os.path.getmtime(pathname)
-
-client.load_extension("cogs.welcomer")
+    
 client.remove_command('help')
+client.load_extension("cogs.welcomer")
 client.load_extension("cogs.poll")
 client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
 client.load_extension("cogs.cars")
 client.load_extension("cogs.pets")
+client.load_extension("cogs.games")
 client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.xp")
