@@ -220,8 +220,8 @@ class Cars(commands.Cog):
             sql = (f"UPDATE cars SET Extra1 = ? WHERE UserID = {ctx.message.author.id}")
             val = (model,)
             cur.execute(sql, val)
-
-            print(model)
+            
+            await ctx.send("Set!")
         db.commit()
         cur.close()
         db.close()
