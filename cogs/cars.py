@@ -204,6 +204,28 @@ class Cars(commands.Cog):
         cur.close()
         db.close()
 
+
+    @commands.command()
+    async def dreamcar(self, ctx, model):
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        result = cur.fetchone()
+
+        if result is not None:
+            sql = (f"UPDATE cars SET Extra1 = ? WHERE UserID = {ctx.message.author.id}")
+            val = (model,)
+            cur.execute(sql, val)
+
+            print(model)
+        db.commit()
+        cur.close()
+        db.close()
+
     @commands.command()
     async def car(self, ctx, member: discord.Member = None):
         DB_PATH = "./data/db/database.db"
@@ -212,9 +234,11 @@ class Cars(commands.Cog):
         cur = db.cursor()
 
         if member is None:
+            user = ctx.message.author
             userid = ctx.message.author.id
         else:
             userid = member.id
+            user = member
 
         cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
         rows = cur.fetchall()
@@ -227,6 +251,7 @@ class Cars(commands.Cog):
             caryear = row[4]
             carmiles = row[5]
             carmods = row[6]
+            dreamcar = row[7]
 
             embed = discord.Embed(title="Car Info", description="Check out this " + ''.join(carmake) + "!", color=0xFFD414)
 
@@ -251,8 +276,11 @@ class Cars(commands.Cog):
             embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
             await ctx.send(embed = embed)
 
+
         cur.close()
         db.close()
+        if dreamcar is not None:
+            await ctx.send(user.display_name + "'s dream car is a: " + ''.join(dreamcar))
 
 def setup(bot):
     bot.add_cog(Cars(bot))
