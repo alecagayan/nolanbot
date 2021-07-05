@@ -206,7 +206,7 @@ class Cars(commands.Cog):
 
 
     @commands.command()
-    async def dreamcar(self, ctx, model):
+    async def dreamcar(self, ctx, *, model):
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
