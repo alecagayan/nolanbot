@@ -35,8 +35,6 @@ class Cars(commands.Cog):
             sql = ("INSERT INTO cars(UserID, Car) VALUES(?,?)")
             val = (ctx.message.author.id, model)
             await ctx.send(str(ctx.message.author.mention) + "'s car has been set to " + model)
-            await ctx.send('Please run the `carphoto <make and model>` command to add a photo!')
-
             cur.execute(sql, val)
 
             def check(m):
@@ -76,6 +74,8 @@ class Cars(commands.Cog):
                 cur.execute(sqlMods, valMods)
 
             await ctx.send('Set!')
+            await ctx.send('Please run the `carphoto <make and model>` command to add a photo!')
+
 
             db.commit()
         else:
