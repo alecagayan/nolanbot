@@ -23,7 +23,6 @@ class Pets(commands.Cog):
         sql = ("INSERT INTO pets(UserID, Pet) VALUES(?,?)")
         val = (ctx.message.author.id, pet)
         await ctx.send(str(ctx.message.author.mention) + "'s pet has been set to " + pet)
-        await ctx.send('Please run the `petphoto <petname>` command to add a photo!')
 
         cur.execute(sql, val)
 
@@ -53,6 +52,7 @@ class Pets(commands.Cog):
             cur.execute(sqlAge, valAge)
 
         await ctx.send('Set!')
+        await ctx.send('Please run the `petphoto <petname>` command to add a photo!')
         
         db.commit()
         cur.close()
