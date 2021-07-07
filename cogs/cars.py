@@ -227,7 +227,7 @@ class Cars(commands.Cog):
         db.close()
 
     @commands.command()
-    async def car(self, ctx, member: discord.Member = None):
+    async def car(self, ctx, member: discord.Member = None, *, model = None):
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
@@ -240,8 +240,14 @@ class Cars(commands.Cog):
             userid = member.id
             user = member
 
-        cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
+        if model == None:
+            cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
+        else:
+            cur.execute("SELECT * FROM cars WHERE UserID=? AND Car = ?", (userid, model))
+
         rows = cur.fetchall()
+
+        dreamcar = None
 
         for row in rows:
             UserID = row[0]
