@@ -240,7 +240,7 @@ class Cars(commands.Cog):
             userid = member.id
             user = member
 
-        if model == None:
+        if model is None:
             cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
         else:
             cur.execute("SELECT * FROM cars WHERE UserID=? AND Car = ?", (userid, model))
