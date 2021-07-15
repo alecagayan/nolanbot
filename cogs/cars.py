@@ -49,22 +49,22 @@ class Cars(commands.Cog):
             
                 await ctx.send('Which model year is your car?')
                 msgYear = await self.bot.wait_for('message', check=check)
-                sqlYear = ("UPDATE cars SET Year = ? WHERE Car = ?")
+                sqlYear = (f"UPDATE cars SET Year = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
                 valYear = (msgYear.content, model)
 
                 await ctx.send('Which color is your car?')
                 msgColor = await self.bot.wait_for('message', check=check)
-                sqlColor = ("UPDATE cars SET Color = ? WHERE Car = ?")
+                sqlColor = (f"UPDATE cars SET Color = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
                 valColor = (msgColor.content, model)
 
                 await ctx.send('How many miles does your car have?')
                 msgMiles = await self.bot.wait_for('message', check=check)
-                sqlMiles = ("UPDATE cars SET Miles = ? WHERE Car = ?")
+                sqlMiles = (f"UPDATE cars SET Miles = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
                 valMiles = (msgMiles.content, model)
 
                 await ctx.send('Which mods have you done to your car? Separate them with a comma!')
                 msgMods = await self.bot.wait_for('message', check=check)
-                sqlMods = ("UPDATE cars SET Mods = ? WHERE Car = ?")
+                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
                 valMods = (msgMods.content, model)
 
             if result is not None:
