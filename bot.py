@@ -54,11 +54,13 @@ client.load_extension("cogs.helpme")
 client.load_extension("cogs.cars")
 client.load_extension("cogs.pets")
 client.load_extension("cogs.games")
+#client.load_extension("cogs.tickets")
 client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.xp")
 client.load_extension("cogs.music")
-
+#client.load_extension("cogs.mod")
+client.load_extension("cogs.dm")
 
 # Start bot and print status to console
 
@@ -185,7 +187,6 @@ async def server(ctx):
     embed = discord.Embed(color=0xf1c40f) #Golden
     role = discord.utils.get(ctx.guild.roles, name="YouTube Member")
     embed.set_thumbnail(url=ctx.guild.icon_url)
-    embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
     embed.add_field(name='Name', value=ctx.guild.name, inline=True)
     embed.add_field(name='ID', value=ctx.guild.id, inline=True)
     embed.add_field(name='Owner', value=ctx.guild.owner, inline=True)
