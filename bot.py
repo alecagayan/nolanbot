@@ -60,7 +60,7 @@ client.load_extension("cogs.fun")
 client.load_extension("cogs.xp")
 client.load_extension("cogs.music")
 #client.load_extension("cogs.mod")
-client.load_extension("cogs.dm")
+#client.load_extension("cogs.dm")
 
 # Start bot and print status to console
 
