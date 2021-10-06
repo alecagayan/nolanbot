@@ -25,6 +25,10 @@ class Fun(commands.Cog):
             channel = self.bot.get_channel(int(channelid))
             await channel.send(msg)
 
+    @commands.command()
+    async def beans(self, ctx, *, cuft):
+        await ctx.send((float(cuft)*28316.8)/3)
+
     
     @commands.command()
     @commands.guild_only()
