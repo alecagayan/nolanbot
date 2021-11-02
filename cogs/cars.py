@@ -288,5 +288,25 @@ class Cars(commands.Cog):
         if dreamcar is not None:
             await ctx.send(user.display_name + "'s dream car is a: " + ''.join(dreamcar))
 
+
+    @commands.command()
+    async def carcount(self, ctx):
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        cur.execute("SELECT * FROM cars")
+        rows = cur.fetchall()
+
+      #counts the number of rows in the table
+        count = 0
+        for row in rows:
+            count += 1
+
+        await ctx.send("There are " + str(count) + " cars in the database!")
+
+        cur.close()
+        db.close()
 def setup(bot):
     bot.add_cog(Cars(bot))
