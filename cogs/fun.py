@@ -43,7 +43,7 @@ class Fun(commands.Cog):
     async def milk(self, ctx):
         await ctx.send("<:wat:733817269469315113> :milk: <:bignol:808398271453986816>")
 
-    @commands.command(aliases=['8ball']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
+    @commands.command(aliases=['8ball', 'orb']) # THANK YOU SO MUCH TO https://github.com/SpectrixDev
     async def eightball(self, ctx, *, _ballInput: clean_content):
         """extra generic just the way you like it"""
         choiceType = random.choice(["(Affirmative)", "(Non-committal)", "(Negative)"])

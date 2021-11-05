@@ -308,5 +308,6 @@ class Cars(commands.Cog):
 
         cur.close()
         db.close()
+        
 def setup(bot):
     bot.add_cog(Cars(bot))

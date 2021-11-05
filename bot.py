@@ -51,10 +51,9 @@ client.load_extension("cogs.welcomer")
 client.load_extension("cogs.poll")
 client.load_extension("cogs.birthday")
 client.load_extension("cogs.helpme")
-#client.load_extension("cogs.cars")
-#client.load_extension("cogs.pets")
+client.load_extension("cogs.cars")
+client.load_extension("cogs.pets")
 client.load_extension("cogs.games")
-#client.load_extension("cogs.tickets")
 client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 #client.load_extension("cogs.xp")
@@ -206,6 +205,10 @@ async def wiki(ctx, *, query):
     embed.set_thumbnail(url=wikipedia.page(query).images[0])
     embed.add_field(name="Summary", value=wikipedia.summary(query, sentences=2), inline=False)
     await ctx.send(embed=embed)
+
+@client.command()
+async def code(ctx):
+    await ctx.send("`DONUTUG10`")
 
 
 @client.command(aliases=["fancy"])
