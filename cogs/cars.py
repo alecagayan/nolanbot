@@ -35,19 +35,26 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
+        userid = ctx.message.author.id
+
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID
+
         if model is not None:
 
-            cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+            cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
             result = cur.fetchone()
             sql = ("INSERT INTO cars(UserID, Car) VALUES(?,?)")
             val = (ctx.message.author.id, model)
             await ctx.send(str(ctx.message.author.mention) + "'s car has been set to " + model)
             cur.execute(sql, val)
 
+
+
             def check(m):
                 return m.author == ctx.author
 
-            cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+            cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
             result = cur.fetchone()
             if result is None:
                 await ctx.send('Please set up a car! use `!carhelp` to get some info!')
@@ -61,17 +68,17 @@ class Cars(commands.Cog):
 
                 await ctx.send('Which color is your car?')
                 msgColor = await self.bot.wait_for('message', check=check)
-                sqlColor = (f"UPDATE cars SET Color = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
+                sqlColor = (f"UPDATE cars SET Color = ? WHERE Car = ? AND UserID = {userid}")
                 valColor = (msgColor.content, model)
 
                 await ctx.send('How many miles does your car have?')
                 msgMiles = await self.bot.wait_for('message', check=check)
-                sqlMiles = (f"UPDATE cars SET Miles = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
+                sqlMiles = (f"UPDATE cars SET Miles = ? WHERE Car = ? AND UserID = {userid}")
                 valMiles = (msgMiles.content, model)
 
                 await ctx.send('Which mods have you done to your car? Separate them with a comma!')
                 msgMods = await self.bot.wait_for('message', check=check)
-                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
+                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {userid}")
                 valMods = (msgMods.content, model)
 
             if result is not None:
@@ -98,9 +105,14 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
+        userid = ctx.message.author.id
+
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID        
+
         if model is not None:
 
-            sqlDel = (f"DELETE FROM cars WHERE Car = ? AND UserID = {ctx.message.author.id}")
+            sqlDel = (f"DELETE FROM cars WHERE Car = ? AND UserID = {userid}")
             valDel = (model)
 
             await ctx.send('Car removed!')
@@ -130,12 +142,17 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
+        userid = ctx.message.author.id
+
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID
+
         def check(m):
             return m.author == ctx.author
 
         if model is not None:
 
-            cur.execute(f"SELECT Car FROM cars WHERE UserID = {pretendID}")
+            cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
             result = cur.fetchone()
             if result is None:
                 await ctx.send('Please set up a car! use `!carhelp` to get some info!')
@@ -145,23 +162,23 @@ class Cars(commands.Cog):
                 await ctx.send('Which model year is your car?')
                 msgYear = await self.bot.wait_for('message', check=check)
                 print(msgYear.content)
-                sqlYear = (f"UPDATE cars SET Year = ? WHERE Car = ? AND UserID = {pretendID}")
+                sqlYear = (f"UPDATE cars SET Year = ? WHERE Car = ? AND UserID = {userid}")
                 valYear = (msgYear.content, model)
                 print(valYear)
 
                 await ctx.send('Which color is your car?')
                 msgColor = await self.bot.wait_for('message', check=check)
-                sqlColor = (f"UPDATE cars SET Color = ? WHERE Car = ? AND UserID = {pretendID}")
+                sqlColor = (f"UPDATE cars SET Color = ? WHERE Car = ? AND UserID = {userid}")
                 valColor = (msgColor.content, model)
 
                 await ctx.send('How many miles does your car have?')
                 msgMiles = await self.bot.wait_for('message', check=check)
-                sqlMiles = (f"UPDATE cars SET Miles = ? WHERE Car = ? AND UserID = {pretendID}")
+                sqlMiles = (f"UPDATE cars SET Miles = ? WHERE Car = ? AND UserID = {userid}")
                 valMiles = (msgMiles.content, model)
 
                 await ctx.send('Which mods have you done to your car? Separate them with a comma!')
                 msgMods = await self.bot.wait_for('message', check=check)
-                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {pretendID}")
+                sqlMods = (f"UPDATE cars SET Mods = ? WHERE Car = ? AND UserID = {userid}")
                 valMods = (msgMods.content, model)
 
             if result is not None:
@@ -192,12 +209,16 @@ class Cars(commands.Cog):
             else:
                 await ctx.send("**Make sure to attach a photo. More info at: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
 
+        userid = ctx.message.author.id
 
-            cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID
+
+            cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
             result = cur.fetchone()
             if result is None:
                 await ctx.send('Please set up a car! use `!carhelp` to get some info!')
-            sql = (f"UPDATE cars SET Photo = ? WHERE Car = ? AND UserID = {ctx.message.author.id}")
+            sql = (f"UPDATE cars SET Photo = ? WHERE Car = ? AND UserID = {userid}")
             val = (photo.url, model)
 
             if result is not None:
@@ -219,12 +240,16 @@ class Cars(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
+        userid = ctx.message.author.id
 
-        cur.execute(f"SELECT Car FROM cars WHERE UserID = {ctx.message.author.id}")
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID
+
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
         result = cur.fetchone()
 
         if result is not None:
-            sql = (f"UPDATE cars SET Extra1 = ? WHERE UserID = {ctx.message.author.id}")
+            sql = (f"UPDATE cars SET Extra1 = ? WHERE UserID = {userid}")
             val = (model,)
             cur.execute(sql, val)
             
@@ -249,7 +274,8 @@ class Cars(commands.Cog):
 
             user = member
 
-        userid = pretendID
+        if pretendID != 0 and ctx.message.author.id == 401063536618373121:
+            userid = pretendID
         if model is None:
             cur.execute("SELECT * FROM cars WHERE UserID=?", (userid,))
         else:
