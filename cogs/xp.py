@@ -143,7 +143,7 @@ class Xp(commands.Cog):
                 user = self.bot.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
-                embed.add_field(name=counter + ". " + user.name, value=str(xp), inline=False)
+                embed.add_field(name=str(counter) + ". " + user.name, value=str(xp), inline=False)
                 counter+=1
             await ctx.send(embed=embed)
         else:
