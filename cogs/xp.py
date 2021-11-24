@@ -133,18 +133,11 @@ class Xp(commands.Cog):
         if len(res) != 0:
         
             for row in res:
-                UserID = row[0]
-                xp = row[1]
-                lvl = row[2]
-            
-            embed = discord.Embed(title="Top 10 Users", description="Experience" , color=0xFFD414)
-            embed.add_field(name="XP", value=str(xp), inline=True)
-            embed.add_field(name="Level", value=str(lvl), inline=True)
-            await ctx.send(embed = embed)
+                await ctx.send(f"{row[0]} has {row[1]} XP")
         else:
             await ctx.send("There are no users with XP!")
         cur.close()
-        db.close()
+        db.close()  
 
 def setup(bot):
     bot.add_cog(Xp(bot))
