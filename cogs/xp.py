@@ -122,5 +122,33 @@ class Xp(commands.Cog):
         cur.close()
         db.close()
 
+    #show top 10 users
+    @commands.command()
+    async def top(self, ctx):
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        cur.execute("SELECT * FROM xp ORDER BY XP DESC LIMIT 10")
+        res = cur.fetchall()
+
+        if len(res) != 0:
+            embed = discord.Embed(title="Top 10 Users", description="Experience" , color=0xFFD414)
+            for row in res:
+                UserID = row[0]
+                xp = row[1]
+                lvl = row[2]
+                cur.execute(f"SELECT * FROM xp WHERE UserID = {UserID}")
+                res = cur.fetchone()
+                user = self.bot.get_user(UserID)
+                embed.add_field(name=user.name, value=str(xp), inline=True)
+            await ctx.send(embed = embed)
+        else:
+            await ctx.send("There are no users in the database!")
+        cur.close()
+        db.close()
+
+
+
+
 def setup(bot):
     bot.add_cog(Xp(bot))
