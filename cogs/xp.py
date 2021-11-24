@@ -128,10 +128,12 @@ class Xp(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT XP, UserID FROM xp ORDER BY XP DESC LIMIT 20")
+        cur.execute("SELECT XP, UserID FROM xp")
         res = cur.fetchall()
-
-        await ctx.send(res)
+        res.sort()
+        #print first 20 elements in descending order
+        for i in range(20):
+            print(res[i])
 
         if len(res) != 0:
         
