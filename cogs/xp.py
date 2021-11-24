@@ -131,6 +131,8 @@ class Xp(commands.Cog):
         cur.execute("SELECT * FROM xp ORDER BY XP DESC LIMIT 1")
         res = cur.fetchall()
 
+        await ctx.send(res)
+
         if len(res) != 0:
         
             for row in res:
