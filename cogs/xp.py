@@ -128,7 +128,7 @@ class Xp(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT * FROM xp ORDER BY XP DESC")
+        cur.execute("SELECT * FROM xp ORDER BY XP DESC LIMIT 20")
         res = cur.fetchall()
 
         await ctx.send(res)
