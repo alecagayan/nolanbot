@@ -46,7 +46,8 @@ class Xp(commands.Cog):
             lvl = xpfetch[0]
         else:
             lvl = 0
-        cur.execute(f"SELECT XPLock FROM xp WHERE UserID = {message.author.id}")
+        cur.execute(
+            f"SELECT XPLock FROM xp WHERE UserID = {message.author.id}")
         xplockfetch = cur.fetchone()
         if xplockfetch is not None:
             xplock = xplockfetch[0]
@@ -107,44 +108,47 @@ class Xp(commands.Cog):
         res = cur.fetchall()
 
         if len(res) != 0:
-        
+
             for row in res:
                 UserID = row[0]
                 xp = row[1]
                 lvl = row[2]
-            
-            embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
+
+            embed = discord.Embed(title="Server Level",
+                                  description="Experience", color=0xFFD414)
             embed.add_field(name="XP", value=str(xp), inline=True)
             embed.add_field(name="Level", value=str(lvl), inline=True)
-            await ctx.send(embed = embed)
+            await ctx.send(embed=embed)
         else:
             await ctx.send("This user has no XP!")
         cur.close()
         db.close()
-    #get top 10 users with most xp
+    # get top 10 users with most xp
+
     @commands.command()
     async def top(self, ctx):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT * FROM xp ORDER BY CAST(XP AS INTEGER) DESC LIMIT 10")
+        cur.execute(
+            "SELECT * FROM xp ORDER BY CAST(XP AS INTEGER) DESC LIMIT 10")
         res = cur.fetchall()
 
-
-
         if len(res) != 0:
-            embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
+            embed = discord.Embed(title="Server Level",
+                                  description="Experience", color=0xFFD414)
 
             for row in res:
                 user = self.bot.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
                 embed.add_field(name=user.name, value=str(xp), inline=True)
-
+            await ctx.send(embed=embed)
         else:
             await ctx.send("There are no users with XP!")
         cur.close()
-        db.close()  
+        db.close()
+
 
 def setup(bot):
     bot.add_cog(Xp(bot))
