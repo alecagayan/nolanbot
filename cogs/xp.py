@@ -128,7 +128,7 @@ class Xp(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT XP, UserID FROM xp CAST(XP AS INTEGER);")
+        cur.execute("SELECT * FROM xp CAST(XP AS INTEGER);")
         res = cur.fetchall()
 
         await ctx.send(res)
