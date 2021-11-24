@@ -136,7 +136,7 @@ class Xp(commands.Cog):
             embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
 
             for row in res:
-                user = await self.get_user_info(row[0])
+                user = await self.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
                 embed.add_field(name=user.name, value=str(xp), inline=True)
