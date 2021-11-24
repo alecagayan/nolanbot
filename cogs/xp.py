@@ -142,7 +142,7 @@ class Xp(commands.Cog):
                 user = self.bot.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
-                embed.add_field(name=user.name, value=str(xp), inline=True)
+                embed.add_field(name=user.name, value=str(xp), inline=False)
             await ctx.send(embed=embed)
         else:
             await ctx.send("There are no users with XP!")
