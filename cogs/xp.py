@@ -130,10 +130,17 @@ class Xp(commands.Cog):
         cur.execute("SELECT * FROM xp ORDER BY CAST(XP AS INTEGER) DESC LIMIT 10")
         res = cur.fetchall()
 
+
+
         if len(res) != 0:
-        
+            embed = discord.Embed(title="Server Level", description="Experience" , color=0xFFD414)
+
             for row in res:
-                await ctx.send(f"{row[0]} has {row[1]} XP")
+                user = await self.ctx.get_user_info(row[0])
+                xp = row[1]
+                lvl = row[2]
+                embed.add_field(name=user.name, value=str(xp), inline=True)
+
         else:
             await ctx.send("There are no users with XP!")
         cur.close()
