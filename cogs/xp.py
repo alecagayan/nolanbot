@@ -128,12 +128,10 @@ class Xp(commands.Cog):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT XP, UserID FROM xp")
+        cur.execute("SELECT XP, UserID FROM xp CAST(XP AS INTEGER)")
         res = cur.fetchall()
-        res.sort()
-        #print first 20 elements in descending order
-        for i in range(20):
-            print(res[i])
+
+        await ctx.send(res)
 
         if len(res) != 0:
         
