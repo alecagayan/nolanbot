@@ -137,12 +137,14 @@ class Xp(commands.Cog):
         if len(res) != 0:
             embed = discord.Embed(title="Server Level",
                                   description="Experience", color=0xFFD414)
-
+            counter = 1
             for row in res:
+                
                 user = self.bot.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
-                embed.add_field(name=user.name, value=str(xp), inline=False)
+                embed.add_field(name=counter + ". " + user.name, value=str(xp), inline=False)
+                counter+=1
             await ctx.send(embed=embed)
         else:
             await ctx.send("There are no users with XP!")
