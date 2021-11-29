@@ -151,23 +151,6 @@ class Xp(commands.Cog):
         cur.close()
         db.close()
 
-    #remove a user from the xp table
-    @commands.command()
-    async def remove(self, ctx, *, member: discord.Member = None):
-        db = connect(DB_PATH, check_same_thread=False)
-        cur = db.cursor()
-
-        if member is None:
-            idmember = ctx.message.author.id
-        else:
-            idmember = member.id
-
-        cur.execute(f"DELETE FROM xp WHERE UserID = {idmember}")
-        db.commit()
-        cur.close()
-        db.close()
-        await ctx.send("Removed user from xp table!")
-        
 
 
 def setup(bot):
