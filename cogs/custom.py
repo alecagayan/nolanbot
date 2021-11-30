@@ -8,7 +8,7 @@ class Custom(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def sav(self, ctx, *, args):
+    async def sav(self, ctx, *, args = None):
         # send youtube link
         await ctx.send('https://youtu.be/Qll7IHN0I4Q')
 
