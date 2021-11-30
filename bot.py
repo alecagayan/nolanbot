@@ -58,8 +58,8 @@ client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.xp")
 client.load_extension("cogs.music")
-#client.load_extension("cogs.mod")
-#client.load_extension("cogs.dm")
+#client.load_extension("cogs.giveaways")
+client.load_extension("cogs.custom")
 
 # Start bot and print status to console
 
@@ -74,7 +74,7 @@ async def on_ready():
 
     cur.execute('''
                 CREATE TABLE IF NOT EXISTS cars (
-                UserID integer,
+                UserID integer, 
                 Car text,
                 Photo text,
                 Color text,
