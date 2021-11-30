@@ -214,21 +214,22 @@ class Cars(commands.Cog):
         if pretendID != 0 and ctx.message.author.id == 401063536618373121:
             userid = pretendID
 
-            cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
-            result = cur.fetchone()
-            if result is None:
-                await ctx.send('Please set up a car! use `!carhelp` to get some info!')
-            sql = (f"UPDATE cars SET Photo = ? WHERE Car = ? AND UserID = {userid}")
-            val = (photo.url, model)
+        cur.execute(f"SELECT Car FROM cars WHERE UserID = {userid}")
+        result = cur.fetchone()
+        if result is None:
+            await ctx.send('Please set up a car! use `!carhelp` to get some info!')
+        sql = (f"UPDATE cars SET Photo = ? WHERE Car = ? AND UserID = {userid}")
+        val = (photo.url, model)
 
-            if result is not None:
-                cur.execute(sql, val)
+        if result is not None:
+            cur.execute(sql, val)
             await ctx.send(str(ctx.message.author.mention) + "'s car photo has been set to " + photo.url)
-
-            db.commit()
-
         else:
             await ctx.send("**Check out the wiki for instructions on how to set or update your car photo: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+
+        db.commit()
+
+      
         cur.close()
         db.close()
 
