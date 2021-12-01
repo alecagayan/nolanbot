@@ -139,6 +139,8 @@ class Xp(commands.Cog):
                                   description="Experience", color=0xFFD414)
             counter = 1
             for row in res:
+
+                await ctx.send(res)
                 
                 user = self.bot.get_user(row[0])
                 xp = row[1]
