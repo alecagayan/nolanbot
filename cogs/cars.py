@@ -345,6 +345,54 @@ class Cars(commands.Cog):
 
         cur.close()
         db.close()
+
+    @commands.command(name='drives', aliases=['owns', 'whohas'])
+    async def drives(self, ctx, *, model = None):
+        if model is None:
+            await ctx.send("Please specify a car!")
+            return
+
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+
+        sql = (f"""
+            SELECT *
+            FROM cars
+            WHERE Car LIKE '%{model}%'
+            LIMIT 15;
+        """)
+        cur.execute(sql)
+        rows = cur.fetchall()
+
+        if len(rows) == 0:
+            await ctx.send("Sorry, no one has said they drive that car!")
+            return
+
+        for row in rows:
+            UserID = row[0]
+            carmake = row[1]
+            carphoto = row[2]
+            caryear = row[4]
+            carmiles = row[5]
+
+            user = await self.bot.fetch_user(UserID)
+            embed = discord.Embed(
+                title=''.join(user.name) + "'s " + ''.join(caryear) + " " + ''.join(carmake),
+                color=0xFFD414
+            )
+
+            if carphoto is not None:
+                embed.set_image(url=''.join(carphoto))
+
+            if carmiles is not None:
+                embed.set_footer(text='Mileage: ' + ''.join(carmiles))
+
+            await ctx.send(embed = embed)
+
+        cur.close()
+        db.close()
         
 def setup(bot):
     bot.add_cog(Cars(bot))
