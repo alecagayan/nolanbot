@@ -378,8 +378,14 @@ class Cars(commands.Cog):
             carmiles = row[5]
 
             user = await self.bot.fetch_user(UserID)
+            title = ''.join(user.name) + "'s "
+            if caryear is not None:
+                caryear = caryear.replace('!carsetup', '')
+                if caryear not in carmake:
+                    title += ''.join(caryear.strip()) + " "
+            title += ''.join(carmake)
             embed = discord.Embed(
-                title=''.join(user.name) + "'s " + ''.join(caryear) + " " + ''.join(carmake),
+                title=title,
                 color=0xFFD414
             )
 
