@@ -390,7 +390,7 @@ class Cars(commands.Cog):
             )
 
             if carphoto is not None:
-                embed.set_image(url=''.join(carphoto))
+                embed.set_thumbnail(url=''.join(carphoto))
 
             if carmiles is not None:
                 embed.set_footer(text='Mileage: ' + ''.join(carmiles))
