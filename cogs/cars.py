@@ -361,7 +361,7 @@ class Cars(commands.Cog):
             SELECT *
             FROM cars
             WHERE Car LIKE '%{model}%'
-            LIMIT 15;
+            LIMIT 10;
         """)
         cur.execute(sql)
         rows = cur.fetchall()
