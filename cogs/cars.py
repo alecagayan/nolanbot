@@ -374,6 +374,7 @@ class Cars(commands.Cog):
             UserID = row[0]
             carmake = row[1]
             carphoto = row[2]
+            carcolor = row[3]
             caryear = row[4]
             carmiles = row[5]
 
@@ -391,6 +392,9 @@ class Cars(commands.Cog):
 
             if carphoto is not None:
                 embed.set_thumbnail(url=''.join(carphoto))
+
+            if carcolor is not None:
+                embed.add_field(name="Color", value=''.join(carcolor), inline=True)
 
             await ctx.send(embed = embed)
 
