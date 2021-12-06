@@ -385,15 +385,12 @@ class Cars(commands.Cog):
                     title += ''.join(caryear.strip()) + " "
             title += ''.join(carmake)
             embed = discord.Embed(
-                title=title,
+                title=title, description='Mileage: ' + ''.join(carmiles),
                 color=0xFFD414
             )
 
             if carphoto is not None:
                 embed.set_thumbnail(url=''.join(carphoto))
-
-            if carmiles is not None:
-                embed.set_footer(text='Mileage: ' + ''.join(carmiles))
 
             await ctx.send(embed = embed)
 
