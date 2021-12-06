@@ -55,7 +55,9 @@ class Xp(commands.Cog):
             xplock = ((datetime.utcnow()-timedelta(seconds=60)).isoformat())
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
-            await self.add_xp(message, xp, lvl)
+            #check if message has more than 5 words, if not, don't add xp
+            if len(message.content.split()) >= 5:
+                await self.add_xp(message, xp, lvl)
 
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(10, 20)
