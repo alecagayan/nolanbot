@@ -1,0 +1,8 @@
+discord
+psutil
+pyowm
+pandas
+wikipedia
+plotly
+sr_api
+youtube_dl
