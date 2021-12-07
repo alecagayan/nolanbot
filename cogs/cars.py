@@ -385,6 +385,10 @@ class Cars(commands.Cog):
                 if caryear not in carmake:
                     title += ''.join(caryear.strip()) + " "
             title += ''.join(carmake)
+            if carmiles is not None:
+                carmiles = ''.join(carmiles)
+            else:
+                carmiles = "None Provided"
             embed = discord.Embed(
                 title=title, description='Mileage: ' + ''.join(carmiles),
                 color=0xFFD414
