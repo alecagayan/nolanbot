@@ -41,8 +41,6 @@ intents = discord.Intents.default()
 intents.members = True
 client = Bot(description=config.des, command_prefix=config.pref, intents=intents)
 
-newUserMessage = 'testing!!!'
-
 def file_age_in_seconds(pathname):
     return os.path.getmtime(pathname)
     
@@ -127,7 +125,7 @@ async def on_ready():
     print("Currently active on " + str(len(client.guilds)) + " server(s).\n")
     logger.info("Bot started successfully.")
 
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('hi nolan'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('with cars'))
 
 @client.command()
 async def die(ctx):
