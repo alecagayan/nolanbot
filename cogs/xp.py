@@ -60,7 +60,7 @@ class Xp(commands.Cog):
                 await self.add_xp(message, xp, lvl)
 
     async def add_xp(self, message, xp, lvl):
-        xp_to_add = randint(10, 20)
+        xp_to_add = randint(10, 15)
         if xp == None:
             xp = 0
         if lvl == None:
