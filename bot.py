@@ -1,4 +1,5 @@
 import discord
+from discord import guild
 import config
 import psutil
 import platform
@@ -126,26 +127,26 @@ async def on_ready():
     logger.info("Bot started successfully.")
 
     await client.change_presence(status=discord.Status.online, activity=discord.Game('with cars'))
-
-@client.command()
+    
+@client.slash_command()
 async def die(ctx):
     if(ctx.author.id == 401063536618373121):
-        await ctx.send("Drinking bleach.....")
+        await ctx.respond("Drinking bleach.....")
         await client.close()
     else:
-        await ctx.send(config.err_mesg_permission)
+        await ctx.respond(config.err_mesg_permission)
 
-@client.command()
+@client.slash_command()
 async def hello(ctx):
     def check(m):
         return m.author == ctx.author
-    await ctx.send("Hello")
+    await ctx.respond("Hello")
     msg = await client.wait_for('message', check=check)
-    await ctx.send(f"You said {msg.content}. Hi again.")
+    await ctx.respond(f"You said {msg.content}. Hi again.")
 
 @client.command(aliases=['github', 'git'])
 async def commit(ctx):
-    await ctx.send('https://github.com/oopsie1412/nolanbot')
+    await ctx.respond('https://github.com/oopsie1412/nolanbot')
 
 @client.command(aliases=['game', 'presence'])
 async def setgame(self, ctx, *args):
@@ -154,27 +155,28 @@ async def setgame(self, ctx, *args):
         try:
             setgame = ' '.join(args)
             await client.change_presence(status=discord.Status.online, activity=discord.Game(setgame))
-            await ctx.send(":ballot_box_with_check: Game name set to: `" + setgame + "`")
+            await ctx.respond(":ballot_box_with_check: Game name set to: `" + setgame + "`")
             print("Game set to: `" + setgame + "`")
         except Exception as e:
             print('erroreeee: ' + e)
         return
     else:
-        await ctx.send(config.err_mesg_permission)
+        await ctx.respond(config.err_mesg_permission)
 
 #roll a die
-@client.command()
+@client.slash_command()
 async def roll(ctx):
-    await ctx.send(config.die_url[random.randint(1,6)-1])
+    await ctx.respond(config.die_url[random.randint(1,6)-1])
 
-@client.command()
+@client.slash_command()
 async def ping(ctx):
     """
     Pings the bot.
     """
     joke = random.choice(["NO FEAR", "MO INTERNET BABEH", "fire it up", "LIGHTNING"])
-    ping_msg = await ctx.send("Pinging Server...")
-    await ping_msg.edit(content=joke + f" // ***{client.latency*1000:.0f}ms***")
+    await ctx.respond("Pinging Server...")
+    msg = await ctx.interaction.original_message()
+    await msg.edit(content=joke + f" // ***{client.latency*1000:.0f}ms***")
 
 @client.command(pass_context=True, aliases=['serverinfo', 'guild', 'membercount'])
 async def server(ctx):
@@ -191,9 +193,9 @@ async def server(ctx):
     embed.add_field(name='Member Count', value=len(role.members), inline=True)
     embed.add_field(name='Creation', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def wiki(ctx, *, query):
     newquery = wikipedia.suggest(query)
     if(newquery is not None):
@@ -202,11 +204,11 @@ async def wiki(ctx, *, query):
     embed=discord.Embed(title=wikipedia.page(query).title, url=wikipedia.page(query).url)
     embed.set_thumbnail(url=wikipedia.page(query).images[0])
     embed.add_field(name="Summary", value=wikipedia.summary(query, sentences=2), inline=False)
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def code(ctx):
-    await ctx.send("`DONUTUG10`")
+    await ctx.respond("`DONUTUG10`")
 
 
 @client.command(aliases=["fancy"])
@@ -220,7 +222,7 @@ async def fancify(ctx, *, text):
 
         text = strip_non_ascii(text)
         if len(text.strip()) < 1:
-            return await ctx.send(":x: ASCII characters only please!")
+            return await ctx.respond(":x: ASCII characters only please!")
         output = ""
         for letter in text:
             if 65 <= ord(letter) <= 90:
@@ -229,18 +231,18 @@ async def fancify(ctx, *, text):
                 output += chr(ord(letter) + 119919)
             elif letter == " ":
                 output += " "
-        await ctx.send(output)
+        await ctx.respond(output)
 
     except Exception as e:
         print(e)
     return
 
-@client.command()
+@client.slash_command()
 async def suggest(ctx, *, msg):
     user = client.get_user(401063536618373121)
     await user.send('**Suggestion:** ' + msg)
 
-@client.command()
+@client.slash_command()
 async def uptime(ctx):
     current_time = time.time()
     difference = int(round(current_time - start_time))
@@ -249,9 +251,9 @@ async def uptime(ctx):
     embed.add_field(name="Uptime", value=text)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
 
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def stats(ctx):
     embedColor = random.randint(0, 0xffffff)
     embed = discord.Embed(title="Stats:", color=embedColor)
@@ -265,9 +267,9 @@ async def stats(ctx):
                     + '\nCPU Temperature: ' + str(psutil.sensors_temperatures(fahrenheit=False)))
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
 
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def perms(ctx):
     embed = discord.Embed(color=0xf1c40f) #Golden
     embed.set_thumbnail(url=ctx.guild.icon_url)
@@ -276,12 +278,12 @@ async def perms(ctx):
     embed.add_field(name='Future-Proof Perms', value='Connect\nSpeak', inline=False)
     embed.add_field(name='The simple way to go about this would be to give the bot admin:', value="But that's not very secure", inline=False)
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now()))
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def covid(ctx, type = None, *, location = None):
 
-    await ctx.send('⚠️ `Please wait, this may take a while`')
+    await ctx.respond('⚠️ `Please wait, this may take a while`')
 
     if(type == "state"):
 
@@ -292,7 +294,7 @@ async def covid(ctx, type = None, *, location = None):
         df_state = df[ df['state'] == location ]
         fig = px.line(df_state, x = 'date', y = ['cases', 'deaths'], title='Cases and Deaths in ' + location)
         fig.write_image(state_graph)
-        await ctx.send(file=discord.File(state_graph))
+        await ctx.respond(file=discord.File(state_graph))
 
 
     elif(type == "county"):
@@ -304,7 +306,7 @@ async def covid(ctx, type = None, *, location = None):
         df_county = df[ df['county'] == location ]
         fig = px.line(df_county, x = 'date', y = ['cases', 'deaths'], title='Cases and Deaths in ' + location)
         fig.write_image(county_graph)
-        await ctx.send(file=discord.File(county_graph))
+        await ctx.respond(file=discord.File(county_graph))
 
     else:
 
@@ -314,9 +316,9 @@ async def covid(ctx, type = None, *, location = None):
         fig = px.pie(df, values='cases', names='state', color_discrete_sequence=px.colors.sequential.RdBu)
         fig.update_traces(textposition='inside', textinfo='percent+label')
         fig.write_image('plot-nation.png')
-        await ctx.send(file=discord.File(us_graph))
+        await ctx.respond(file=discord.File(us_graph))
 
-@client.command()
+@client.slash_command()
 async def weather(ctx, a, t = None):
     comma = ','
     mgr = owm.weather_manager()
@@ -351,18 +353,18 @@ async def weather(ctx, a, t = None):
     embed.add_field(name="Humidity :droplet:", value=str(weather.humidity) + '%', inline=True) #humidity
     embed.add_field(name="Visibility :eye:", value=str(round(weather.visibility_distance/1609.344, 1)) + ' miles', inline=True) #visibility
     embed.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
-@client.command()
+@client.slash_command()
 async def test(ctx):
     photo = ctx.message.attachments[0]
-    await ctx.send(photo.url)
+    await ctx.respond(photo.url)
 
-@client.command()
+@client.slash_command()
 async def help(ctx):
     embedColor = 0xFFD414
     prefix = '!'
-    message = await ctx.send("Select a page by reacting below!")
+    message = await ctx.respond("Select a page by reacting below!")
     # getting the message object for editing and reacting
 
     await message.add_reaction("1️⃣")
@@ -447,7 +449,7 @@ async def help(ctx):
             await message.delete()
             break
 
-@client.command()
+@client.slash_command()
 async def dbhelp(ctx):
     embed1 = discord.Embed(title="Available Setup Commands (1/3)", description="Need database help? Look below", color=0xFFD414)
     embed1.add_field(name="carsetup <make and model>", value="Nolanbot will guide you through the setup process for a new car and will ask for information such as mileage, model year, color, and modifications", inline=False)
@@ -471,9 +473,9 @@ async def dbhelp(ctx):
     embed3.add_field(name="ppronouns", value="Add pronouns to your bio", inline=False)
     embed3.add_field(name="plink", value="Add a URL to your bio. Keep this under 256 characters", inline=False)
     embed3.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
-    message = await ctx.send(embed=embed1)
+    message = await ctx.respond(embed=embed1)
 
-    await ctx.send("**Please read the wiki page for more information: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+    await ctx.respond("**Please read the wiki page for more information: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
     # getting the message object for editing and reacting
 
     await message.add_reaction("1️⃣")
