@@ -96,7 +96,7 @@ class Xp(commands.Cog):
         if not message.author.bot:
             await self.process_xp(message)
 
-    @commands.command()
+    @commands.slash_command()
     async def xp(self, ctx, *, member: discord.Member = None):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -120,14 +120,14 @@ class Xp(commands.Cog):
                                   description="Experience", color=0xFFD414)
             embed.add_field(name="XP", value=str(xp), inline=True)
             embed.add_field(name="Level", value=str(lvl), inline=True)
-            await ctx.send(embed=embed)
+            await ctx.respond(embed=embed)
         else:
-            await ctx.send("This user has no XP!")
+            await ctx.respond("This user has no XP!")
         cur.close()
         db.close()
     # get top 10 users with most xp
 
-    @commands.command()
+    @commands.slash_command()
     async def top(self, ctx):
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -147,9 +147,9 @@ class Xp(commands.Cog):
                 lvl = row[2]
                 embed.add_field(name=str(counter) + ". " + user.name, value=str(xp), inline=False)
                 counter+=1
-            await ctx.send(embed=embed)
+            await ctx.respond(embed=embed)
         else:
-            await ctx.send("There are no users with XP!")
+            await ctx.respond("There are no users with XP!")
         cur.close()
         db.close()
 

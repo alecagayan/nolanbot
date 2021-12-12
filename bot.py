@@ -364,14 +364,16 @@ async def test(ctx):
 async def help(ctx):
     embedColor = 0xFFD414
     prefix = '!'
-    message = await ctx.respond("Select a page by reacting below!")
+    await ctx.respond("Select a page by reacting below!")
+    msg = await ctx.interaction.original_message()
+
     # getting the message object for editing and reacting
 
-    await message.add_reaction("1️⃣")
-    await message.add_reaction("2️⃣")
-    await message.add_reaction("3️⃣")
-    await message.add_reaction("4️⃣")
-    await message.add_reaction("5️⃣")
+    await msg.add_reaction("1️⃣")
+    await msg.add_reaction("2️⃣")
+    await msg.add_reaction("3️⃣")
+    await msg.add_reaction("4️⃣")
+    await msg.add_reaction("5️⃣")
 
 
     embed1 = discord.Embed(title="Help Page 1/5", description="Need help? Look below", color=embedColor)
@@ -419,7 +421,6 @@ async def help(ctx):
     def check(reaction, user):
         return user == ctx.author and str(reaction.emoji) in ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
-
     while True:
         try:
             reaction, user = await client.wait_for("reaction_add", timeout=60, check=check)
@@ -427,26 +428,26 @@ async def help(ctx):
             # example
 
             if str(reaction.emoji) == "1️⃣":
-                await message.edit(embed=embed1)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed1)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "2️⃣":
-                await message.edit(embed=embed2)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed2)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "3️⃣":
-                await message.edit(embed=embed3)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed3)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "4️⃣":
-                await message.edit(embed=embed4)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed4)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "5️⃣":
-                await message.edit(embed=embed5)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed5)
+                await msg.remove_reaction(reaction, user)
             else:
-                await message.remove_reaction(reaction, user)
+                await msg.remove_reaction(reaction, user)
                 # removes reactions if the user tries to go forward on the last page or
                 # backwards on the first page
         except asyncio.TimeoutError:
-            await message.delete()
+            await msg.delete()
             break
 
 @client.slash_command()
@@ -473,14 +474,15 @@ async def dbhelp(ctx):
     embed3.add_field(name="ppronouns", value="Add pronouns to your bio", inline=False)
     embed3.add_field(name="plink", value="Add a URL to your bio. Keep this under 256 characters", inline=False)
     embed3.set_footer(text='Requested on ' + str(datetime.datetime.now())) #prints time
-    message = await ctx.respond(embed=embed1)
+    msg = await ctx.interaction.original_message()
 
     await ctx.respond("**Please read the wiki page for more information: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
     # getting the message object for editing and reacting
 
-    await message.add_reaction("1️⃣")
-    await message.add_reaction("2️⃣")
-    await message.add_reaction("3️⃣")
+    await msg.add_reaction("1️⃣")
+    await msg.add_reaction("2️⃣")
+    await msg.add_reaction("3️⃣")
+
 
 
     def check(reaction, user):
@@ -493,14 +495,14 @@ async def dbhelp(ctx):
             # example
 
             if str(reaction.emoji) == "1️⃣":
-                await message.edit(embed=embed1)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed1)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "2️⃣":
-                await message.edit(embed=embed2)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed2)
+                await msg.remove_reaction(reaction, user)
             elif str(reaction.emoji) == "3️⃣":
-                await message.edit(embed=embed3)
-                await message.remove_reaction(reaction, user)
+                await msg.edit(embed=embed3)
+                await msg.remove_reaction(reaction, user)
 
 
         except asyncio.TimeoutError:
