@@ -327,21 +327,23 @@ class Cars(commands.Cog):
 
 
     @commands.command()
-    async def carcount(self, ctx):
+    async def carcount(self, ctx, *, model = None):
         DB_PATH = "./data/db/database.db"
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
 
-        cur.execute("SELECT * FROM cars")
+        sql = "SELECT * FROM cars"
+        if model is not None:
+            sql = (f"""
+                SELECT *
+                FROM cars
+                WHERE Car LIKE '%{model}%';
+        """)
+        cur.execute(sql)
         rows = cur.fetchall()
 
-      #counts the number of rows in the table
-        count = 0
-        for row in rows:
-            count += 1
-
-        await ctx.send("There are " + str(count) + " cars in the database!")
+        await ctx.send("There are " + str(len(rows)) + " cars in the database!")
 
         cur.close()
         db.close()
@@ -361,7 +363,7 @@ class Cars(commands.Cog):
             SELECT *
             FROM cars
             WHERE Car LIKE '%{model}%'
-            LIMIT 10;
+            LIMIT 40;
         """)
         cur.execute(sql)
         rows = cur.fetchall()
@@ -370,15 +372,12 @@ class Cars(commands.Cog):
             await ctx.send("Sorry, no one has said they drive that car!")
             return
 
-        for row in rows:
-            UserID = row[0]
+        def create_embed(user, row):
             carmake = row[1]
             carphoto = row[2]
             carcolor = row[3]
             caryear = row[4]
             carmiles = row[5]
-
-            user = await self.bot.fetch_user(UserID)
             title = ''.join(user.name) + "'s "
             if caryear is not None:
                 caryear = caryear.replace('!carsetup', '')
@@ -395,12 +394,37 @@ class Cars(commands.Cog):
             )
 
             if carphoto is not None:
-                embed.set_thumbnail(url=''.join(carphoto))
+                embed.set_image(url=''.join(carphoto))
 
             if carcolor is not None:
                 embed.add_field(name="Color", value=''.join(carcolor), inline=True)
+            return embed
 
-            await ctx.send(embed = embed)
+        row = rows[0]
+        user = await self.bot.fetch_user(row[0])
+        message = await ctx.send(embed = create_embed(user, row))
+
+        reactions = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟",]
+        if len(reactions) > len(rows):
+            reactions = reactions[:len(rows)]
+
+        results = {}
+        for i, reaction in enumerate(reactions):
+            results[reaction] = rows[i]
+            await message.add_reaction(reaction)
+
+        def check(reaction, user):
+            return str(reaction.emoji) in reactions
+
+        while True:
+            try:
+                reaction, user = await self.bot.wait_for("reaction_add", timeout=60, check=check)
+                row = results[str(reaction.emoji)]
+                await message.edit(embed=create_embed(await self.bot.fetch_user(row[0]), row))
+                await message.remove_reaction(reaction, user)
+
+            except asyncio.TimeoutError:
+                break
 
         cur.close()
         db.close()
