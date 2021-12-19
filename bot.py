@@ -211,7 +211,7 @@ async def code(ctx):
     await ctx.respond("`DONUTUG10`")
 
 
-@client.command(aliases=["fancy"])
+@client.slash_command(aliases=["fancy"])
 async def fancify(ctx, *, text):
     """Makes text fancy!"""
     try:
