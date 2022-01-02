@@ -93,7 +93,7 @@ class Cars(commands.Cog):
 
             db.commit()
         else:
-            await ctx.send("**Check out the wiki for instructions on how to set up your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to set up your car!**")
         cur.close()
         db.close()
 
@@ -119,7 +119,7 @@ class Cars(commands.Cog):
             cur.execute(sqlDel, [valDel])
             db.commit()
         else:
-            await ctx.send("**Check out the wiki for instructions on how to remove your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
         cur.close()
         db.close()
 
@@ -191,7 +191,7 @@ class Cars(commands.Cog):
             db.commit()
 
         else:
-            await ctx.send("**Check out the wiki for instructions on how to update your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
         cur.close()
         db.close()
 
@@ -207,7 +207,7 @@ class Cars(commands.Cog):
             if ctx.message.attachments[0] is not None:
                 photo = ctx.message.attachments[0]
             else:
-                await ctx.send("**Make sure to attach a photo. More info at: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+                await ctx.send("**Make sure to attach a photo. Please run `!dbhelp` for instructions on how to edit your car!**")
 
         userid = ctx.message.author.id
 
@@ -225,7 +225,7 @@ class Cars(commands.Cog):
             cur.execute(sql, val)
             await ctx.send(str(ctx.message.author.mention) + "'s car photo has been set to " + photo.url)
         else:
-            await ctx.send("**Check out the wiki for instructions on how to set or update your car photo: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
 
         db.commit()
 
