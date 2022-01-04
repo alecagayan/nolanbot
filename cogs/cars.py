@@ -286,6 +286,9 @@ class Cars(commands.Cog):
 
         dreamcar = None
 
+        if len(rows) == 0:
+            await ctx.send(user.display_name + " hasn't set up their car yet!")
+
         for row in rows:
             UserID = row[0]
             carmake = row[1]
