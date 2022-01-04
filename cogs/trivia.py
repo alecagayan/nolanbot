@@ -25,7 +25,7 @@ class Trivia(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send('Invalid subcommand passed...')
 
-    @triviaset.command(name="showsettings")
+    @triviaset.command(name="showsettings", aliases=["show"])
     async def triviaset_showsettings(self, ctx: commands.Context):
         #show the current settings
         with open('./data/json/triviasettings.json') as f:
@@ -84,6 +84,7 @@ class Trivia(commands.Cog):
 
         #send message to guild with hex key
         await ctx.send(f"This guild has been set up. `{settings[str(guild_id)]['hex']}`")
+
     @triviaset.command(name="answertime")
     async def triviaset_answertime(self, ctx: commands.Context, time: int):
         #set the answer time for the current guild
@@ -210,6 +211,22 @@ class Trivia(commands.Cog):
 
         await ctx.send("The point maximum has been set to " + str(maximum))
 
+    
+    @triviaset.command(name="help", aliases=['commands'])
+    async def triviaset_help(self, ctx: commands.Context):
+        #send help embed with triviaset commands and their description
+        embed = discord.Embed(title="Trivia Settings Commands", description="These commands are used to set up the trivia settings for the server.", color=0x00ff00)
+        embed.add_field(name="triviaset setup", value="Set up trivia settings for this guild", inline=False)
+        embed.add_field(name="triviaset answertime <time>", value="Set the answer time for the trivia game", inline=False)
+        embed.add_field(name="triviaset questiontime <time>", value="Set the question time for the trivia game", inline=False)
+        embed.add_field(name="triviaset showanswer", value="Toggle whether or not the answer is shown after the question", inline=False)
+        embed.add_field(name="triviaset showleaderboard", value="Toggle whether or not the leaderboard is shown after the game", inline=False)
+        embed.add_field(name="triviaset pointminimum <minimum>", value="Set the minimum point value for the trivia game", inline=False)
+        embed.add_field(name="triviaset pointmaximum <maximum>", value="Set the maximum point value for the trivia game", inline=False)
+        embed.add_field(name="triviaset help", value="Show this help message", inline=False)
+        embed.add_field(name="triviaset custom help", value="Show help message for custom subcommands", inline=False)
+        await ctx.send(embed=embed)
+
     @triviaset.group(name="custom")
     async def triviaset_custom(self, ctx: commands.Context):
         pass
@@ -236,8 +253,7 @@ class Trivia(commands.Cog):
 
         #send the custom questions
         await ctx.send("Custom questions for this guild:")
-        for custom_trivia in custom_trivias:
-            await ctx.send(custom_trivia)
+        await ctx.send(', '.join(custom_trivias).replace('.csv', ''))
 
         
     @triviaset_custom.command(name="upload", aliases=['add'])
@@ -363,15 +379,26 @@ class Trivia(commands.Cog):
         #join default with commas and remove the .csv extension
         await ctx.send(', '.join(default).replace('.csv', ''))
 
-    @commands.command()
-    async def emojitest(self, ctx):
+    @triviaset_custom.command(name="template", aliases=['templatequiz'])
+    async def triviaset_custom_template(self, ctx: commands.Context):
+        #send format of csv that the bot can read
+        await ctx.send("https://media.discordapp.net/attachments/928061427154034708/928061437673340968/unknown.png")
+        await ctx.send("The file must be uploaded as a **.CSV**. There can be 2-5 answer choices. Do *not* include the header in the image. The first line should be filled out. \nExample: `1, What is the capital of France?, Paris, Berlin, London, Paris, Rome`")
 
-        msg = await ctx.send("banana")
-        await msg.add_reaction("<:1y_:927696490082762803>")
-        await msg.add_reaction("<:2y_:927696490393128970>")
-        await msg.add_reaction("<:3y_:927696490481217576>")
-        await msg.add_reaction("<:4y_:927696490216972339>")
-
+    @triviaset_custom.command(name="help", aliases=['commands'])
+    async def triviaset_custom_help(self, ctx: commands.Context):
+        #send help embed with triviaset custom commands and their description
+        embed = discord.Embed(title="Trivia Set Custom Help", description="", color=0x00ff00)
+        embed.add_field(name="triviaset custom template", value="Shows the format of the csv file that can be used to create custom questions.", inline=False)
+        embed.add_field(name="triviaset custom list", value="Lists all custom quizzes for the current guild.", inline=False)
+        embed.add_field(name="triviaset custom upload", value="Uploads a custom quiz to the server.", inline=False)
+        embed.add_field(name="triviaset custom delete", value="Deletes a custom quiz from the server.", inline=False)
+        embed.add_field(name="triviaset custom clear", value="Deletes all custom quizzes from the server.", inline=False)
+        embed.add_field(name="triviaset custom rename", value="Renames a custom quiz.", inline=False)
+        embed.add_field(name="triviaset custom default", value="Shows the default categories.", inline=False)
+        embed.add_field(name="triviaset custom help", value="Shows this help message.", inline=False)
+        embed.set_footer(text="Use 'triviaset help' to see the help message for triviaset subcommands.")
+        await ctx.send(embed=embed)
 
     @commands.has_permissions(manage_messages=True)
     @commands.command(name="trivia", aliases=['triv'])
@@ -551,6 +578,8 @@ class Trivia(commands.Cog):
             await msg.clear_reactions()
 
             await asyncio.sleep(5)
+
+    
 
 
 
