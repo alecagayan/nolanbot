@@ -224,7 +224,7 @@ class Trivia(commands.Cog):
             return
 
         #check if there is a folder for custom questions for this guild in the data/files/trivia folder
-        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)):
+        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)) or len(os.listdir('./data/files/trivia/' + str(ctx.guild.id))) == 0:
             await ctx.send("There are no custom questions for this guild.")
             return
 
@@ -285,7 +285,7 @@ class Trivia(commands.Cog):
             return
 
         #check if there is a folder for custom questions for this guild in the data/files/trivia folder
-        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)):
+        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)) or len(os.listdir('./data/files/trivia/' + str(ctx.guild.id))) == 0:
             await ctx.send("There are no custom questions for this guild.")
             return
 
@@ -309,7 +309,7 @@ class Trivia(commands.Cog):
             return
 
         #check if there is a folder for custom questions for this guild in the data/files/trivia folder
-        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)):
+        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)) or len(os.listdir('./data/files/trivia/' + str(ctx.guild.id))) == 0:
             await ctx.send("There are no custom questions for this guild.")
             return
 
@@ -328,8 +328,8 @@ class Trivia(commands.Cog):
             await ctx.send("This guild has not been set up.")
             return
 
-        #check if there is a folder for custom questions for this guild in the data/files/trivia folder
-        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)):
+        #check if there is a folder for custom questions for this guild in the data/files/trivia folder or there are no files in the folder
+        if not os.path.exists('./data/files/trivia/' + str(ctx.guild.id)) or len(os.listdir('./data/files/trivia/' + str(ctx.guild.id))) == 0:
             await ctx.send("There are no custom questions for this guild.")
             return
 
@@ -402,7 +402,7 @@ class Trivia(commands.Cog):
         scores = []
         scoreidlist = []
 
-        embed = discord.Embed(title="Trivia", description="", color=0x8A00FF)
+        embed = discord.Embed(title="Trivia", description="", color=0x00ff00)
         embed.add_field(name="Game starting in:", value ="3 seconds!", inline=False)
         intromsg = await ctx.send(embed=embed)
 
@@ -431,7 +431,7 @@ class Trivia(commands.Cog):
 
 
             #show the question for question_time seconds via embed
-            embed = discord.Embed(title=random_questions[i][1], description="", color=0x8A00FF)
+            embed = discord.Embed(title=random_questions[i][1], description="", color=0x00ff00)
             embed.add_field(name="Answer choices will be revealed in:", value =str(settings[str(guild_id)]['question_time']) + " seconds!", inline=False)
             msg = await ctx.send(embed=embed)
 
@@ -439,7 +439,7 @@ class Trivia(commands.Cog):
 
                 
             #edit the embed
-            embed = discord.Embed(title=random_questions[i][1], description="", color=0x8A00FF)
+            embed = discord.Embed(title=random_questions[i][1], description="", color=0x00ff00)
 
             #for each answer choice, add a field to the embed and start each field with a number corresponding to the answer choice
             for j in range(0, len(answer_choices)):
