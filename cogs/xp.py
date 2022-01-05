@@ -66,10 +66,7 @@ class Xp(commands.Cog):
                 await self.add_xp(message, xp, lvl, permlevel)
 
     async def add_xp(self, message, xp, lvl, permlevel):
-        print("xp: " + str(xp))
-        print("lvl: " + str(lvl))
-        print("permlevel: " + str(permlevel))
-        xp_to_add = randint(1000, 1500)
+        xp_to_add = randint(10, 15)
         if xp == None:
             xp = 0
         if lvl == None:
@@ -81,9 +78,6 @@ class Xp(commands.Cog):
 
         #add the increase in level to permlvl
         new_permlevel = int(permlevel) + (int(new_lvl)-int(lvl))
-        print("calculations: "  + str(permlevel) + " + " + str(new_lvl) + " - " + str(lvl))
-        print(new_permlevel)
-        
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
