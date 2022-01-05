@@ -159,7 +159,7 @@ class Xp(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send('Invalid subcommand passed...')
 
-    @xpdb.command()
+    @xpdb.command(name="newcolumn")
     async def xpdb_newcolumn(self, ctx, *, column):
 
         if(ctx.author.id == 401063536618373121):
@@ -172,7 +172,7 @@ class Xp(commands.Cog):
             cur.close()
             db.close()
 
-    @xpdb.command()
+    @xpdb.command(name="copyvalues")
     async def copyvalues(self, ctx, col1, col2):
         if(ctx.author.id == 401063536618373121):
 
