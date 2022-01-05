@@ -129,11 +129,15 @@ class Xp(commands.Cog):
                 UserID = row[0]
                 xp = row[1]
                 lvl = row[2]
+                permlvl = row[4]
+
 
             embed = discord.Embed(title="Server Level",
                                   description="Experience", color=0xFFD414)
             embed.add_field(name="XP", value=str(xp), inline=True)
             embed.add_field(name="Level", value=str(lvl), inline=True)
+            embed.add_field(name="Lifetime Total Level", value=str(permlvl), inline=True)
+
             await ctx.send(embed=embed)
         else:
             await ctx.send("This user has no XP!")
@@ -159,6 +163,7 @@ class Xp(commands.Cog):
                 user = self.bot.get_user(row[0])
                 xp = row[1]
                 lvl = row[2]
+
                 embed.add_field(name=str(counter) + ". " + user.name, value=str(xp), inline=False)
                 counter+=1
             await ctx.send(embed=embed)
@@ -209,6 +214,8 @@ class Xp(commands.Cog):
                 cur = db.cursor()
     
                 cur.execute("UPDATE xp SET XP = 0")
+                cur.execute("UPDATE xp SET Level = 0")
+
                 db.commit()
     
                 cur.close()
