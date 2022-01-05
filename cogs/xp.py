@@ -189,15 +189,15 @@ class Xp(commands.Cog):
     @xpdb.command(name="deletecolumn")
     async def xpdb_deletecolumn(self, ctx, *, column):
             
-            if(ctx.author.id == 401063536618373121):
-    
-                db = connect(DB_PATH, check_same_thread=False)
-                cur = db.cursor()
-    
-                cur.execute(f"ALTER TABLE xp DROP COLUMN {column}")
-                db.commit()
-                cur.close()
-                db.close()
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"ALTER TABLE xp DROP COLUMN {column}")
+            db.commit()
+            cur.close()
+            db.close()
 
     
 
