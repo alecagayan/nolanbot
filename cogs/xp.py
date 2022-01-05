@@ -221,5 +221,18 @@ class Xp(commands.Cog):
                 cur.close()
                 db.close()
 
+    @xpdb.command(name="rmuserxp")
+    async def xpdb_rmuserxp(self, ctx, *, user: discord.Member):
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"DELETE FROM xp WHERE UserID = {user.id}")
+            db.commit()
+
+            cur.close()
+            db.close()
+
 def setup(bot):
     bot.add_cog(Xp(bot))
