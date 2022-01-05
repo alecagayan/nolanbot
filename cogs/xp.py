@@ -153,6 +153,43 @@ class Xp(commands.Cog):
         cur.close()
         db.close()
 
+    @commands.group()
+    async def xpdb(self, ctx: commands.Context):  
+
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid subcommand passed...')
+
+    @xpdb.command()
+    async def xpdb_newcolumn(self, ctx, *, column):
+
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"ALTER TABLE xp ADD COLUMN {column} text")
+            db.commit()
+            cur.close()
+            db.close()
+
+    @xpdb.command()
+    async def copyvalues(self, ctx, col1, col2):
+        if(ctx.author.id == 401063536618373121):
+
+            #copies values from col1 to col2
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+            
+            cur.execute(f"UPDATE xp SET {col2} = {col1}")
+            db.commit()
+
+            cur.close()
+            db.close()
+
+    
+
+    
+
 
 
 def setup(bot):
