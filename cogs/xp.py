@@ -43,8 +43,8 @@ class Xp(commands.Cog):
             xp = 0
         cur.execute(f"SELECT Level FROM xp WHERE UserID = {message.author.id}")
         lvlfetch = cur.fetchone()
-        if xpfetch is not None:
-            lvl = xpfetch[0]
+        if lvlfetch is not None:
+            lvl = lvlfetch[0]
         else:
             lvl = 0
         cur.execute(
@@ -66,7 +66,10 @@ class Xp(commands.Cog):
                 await self.add_xp(message, xp, lvl, permlevel)
 
     async def add_xp(self, message, xp, lvl, permlevel):
-        xp_to_add = randint(10, 15)
+        print("xp: " + str(xp))
+        print("lvl: " + str(lvl))
+        print("permlevel: " + str(permlevel))
+        xp_to_add = randint(1000, 1500)
         if xp == None:
             xp = 0
         if lvl == None:
@@ -78,6 +81,9 @@ class Xp(commands.Cog):
 
         #add the increase in level to permlvl
         new_permlevel = int(permlevel) + (int(new_lvl)-int(lvl))
+        print("calculations: "  + str(permlevel) + " + " + str(new_lvl) + " - " + str(lvl))
+        print(new_permlevel)
+        
 
         db = connect(DB_PATH, check_same_thread=False)
         cur = db.cursor()
@@ -233,6 +239,47 @@ class Xp(commands.Cog):
 
             cur.close()
             db.close()
+
+    @xpdb.command(name="setpermlvl")
+    async def xpdb_setpermlvl(self, ctx, lvl, *, user: discord.Member):
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"UPDATE xp SET Permlevel = {lvl} WHERE UserID = {user.id}")
+            db.commit()
+
+            cur.close()
+            db.close()
+
+    @xpdb.command(name="setxp")
+    async def xpdb_setxp(self, ctx, xp, *, user: discord.Member):
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"UPDATE xp SET XP = {xp} WHERE UserID = {user.id}")
+            db.commit()
+
+            cur.close()
+            db.close()
+
+    @xpdb.command(name="setlvl")
+    async def xpdb_setlvl(self, ctx, lvl, *, user: discord.Member):
+        if(ctx.author.id == 401063536618373121):
+
+            db = connect(DB_PATH, check_same_thread=False)
+            cur = db.cursor()
+
+            cur.execute(f"UPDATE xp SET Level = {lvl} WHERE UserID = {user.id}")
+            db.commit()
+
+            cur.close()
+            db.close()
+
+
 
 def setup(bot):
     bot.add_cog(Xp(bot))
