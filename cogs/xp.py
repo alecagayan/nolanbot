@@ -167,12 +167,12 @@ class Xp(commands.Cog):
             db = connect(DB_PATH, check_same_thread=False)
             cur = db.cursor()
 
-            cur.execute(f"ALTER TABLE xp ADD COLUMN {column} text")
+            cur.execute(f"ALTER TABLE xp ADD COLUMN {column} integer")
             db.commit()
             cur.close()
             db.close()
 
-    @xpdb.command(name="copyvalues")
+    @xpdb.command(name=)
     async def copyvalues(self, ctx, col1, col2):
         if(ctx.author.id == 401063536618373121):
 
@@ -185,6 +185,19 @@ class Xp(commands.Cog):
 
             cur.close()
             db.close()
+
+    @xpdb.command(name="deletecolumn")
+    async def xpdb_deletecolumn(self, ctx, *, column):
+            
+            if(ctx.author.id == 401063536618373121):
+    
+                db = connect(DB_PATH, check_same_thread=False)
+                cur = db.cursor()
+    
+                cur.execute(f"ALTER TABLE xp DROP COLUMN {column}")
+                db.commit()
+                cur.close()
+                db.close()
 
     
 
