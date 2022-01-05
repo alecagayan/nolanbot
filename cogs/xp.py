@@ -172,7 +172,7 @@ class Xp(commands.Cog):
             cur.close()
             db.close()
 
-    @xpdb.command(name=)
+    @xpdb.command(name="copyvalues")
     async def copyvalues(self, ctx, col1, col2):
         if(ctx.author.id == 401063536618373121):
 
