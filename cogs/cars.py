@@ -333,8 +333,12 @@ class Cars(commands.Cog, Database):
 
 
     @commands.command()
-    async def carcount(self, ctx):
-        rows = self.database.fetch_all_cars()
+    async def carcount(self, ctx, *, model = None):
+        rows = []
+        if model is not None:
+            rows = self.database.query_cars(model)
+        else:
+            rows = self.database.fetch_all_cars()
         await ctx.send("There are " + str(len(rows)) + " cars in the database!")   
 
     @commands.command(name='drives', aliases=['owns', 'whohas'])
