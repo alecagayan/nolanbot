@@ -6,11 +6,14 @@ import datetime
 from os.path import isfile
 from sqlite3 import connect
 
+from database import Database
+
 pretendID = 0
 
-class Cars(commands.Cog):
-    def __init__(self, bot):
+class Cars(commands.Cog, Database):
+    def __init__(self, bot, database):
         self.bot = bot
+        self.database = database
 
     @commands.command()
     async def carhelp(self, ctx):
@@ -331,23 +334,8 @@ class Cars(commands.Cog):
 
     @commands.command()
     async def carcount(self, ctx):
-        DB_PATH = "./data/db/database.db"
-
-        db = connect(DB_PATH, check_same_thread=False)
-        cur = db.cursor()
-
-        cur.execute("SELECT * FROM cars")
-        rows = cur.fetchall()
-
-      #counts the number of rows in the table
-        count = 0
-        for row in rows:
-            count += 1
-
-        await ctx.send("There are " + str(count) + " cars in the database!")
-
-        cur.close()
-        db.close()
+        rows = self.database.fetch_all_cars()
+        await ctx.send("There are " + str(len(rows)) + " cars in the database!")   
 
     @commands.command(name='drives', aliases=['owns', 'whohas'])
     async def drives(self, ctx, *, model = None):
@@ -409,4 +397,5 @@ class Cars(commands.Cog):
         db.close()
         
 def setup(bot):
-    bot.add_cog(Cars(bot))
+    database = Database()
+    bot.add_cog(Cars(bot, database))
