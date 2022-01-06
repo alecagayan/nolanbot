@@ -56,8 +56,8 @@ client.load_extension("cogs.profiles")
 client.load_extension("cogs.fun")
 client.load_extension("cogs.xp")
 client.load_extension("cogs.music")
-#client.load_extension("cogs.giveaways")
 client.load_extension("cogs.custom")
+client.load_extension("cogs.trivia")
 
 # Start bot and print status to console
 

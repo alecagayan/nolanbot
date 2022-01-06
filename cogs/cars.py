@@ -96,7 +96,7 @@ class Cars(commands.Cog, Database):
 
             db.commit()
         else:
-            await ctx.send("**Check out the wiki for instructions on how to set up your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to set up your car!**")
         cur.close()
         db.close()
 
@@ -122,7 +122,7 @@ class Cars(commands.Cog, Database):
             cur.execute(sqlDel, [valDel])
             db.commit()
         else:
-            await ctx.send("**Check out the wiki for instructions on how to remove your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
         cur.close()
         db.close()
 
@@ -194,7 +194,7 @@ class Cars(commands.Cog, Database):
             db.commit()
 
         else:
-            await ctx.send("**Check out the wiki for instructions on how to update your car: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
         cur.close()
         db.close()
 
@@ -210,7 +210,7 @@ class Cars(commands.Cog, Database):
             if ctx.message.attachments[0] is not None:
                 photo = ctx.message.attachments[0]
             else:
-                await ctx.send("**Make sure to attach a photo. More info at: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+                await ctx.send("**Make sure to attach a photo. Please run `!dbhelp` for instructions on how to edit your car!**")
 
         userid = ctx.message.author.id
 
@@ -228,7 +228,7 @@ class Cars(commands.Cog, Database):
             cur.execute(sql, val)
             await ctx.send(str(ctx.message.author.mention) + "'s car photo has been set to " + photo.url)
         else:
-            await ctx.send("**Check out the wiki for instructions on how to set or update your car photo: https://wiki.nolanbot.xyz/wiki/Database_Commands**")
+            await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
 
         db.commit()
 
@@ -352,7 +352,7 @@ class Cars(commands.Cog, Database):
             SELECT *
             FROM cars
             WHERE Car LIKE '%{model}%'
-            LIMIT 10;
+            LIMIT 40;
         """)
         cur.execute(sql)
         rows = cur.fetchall()
@@ -361,15 +361,12 @@ class Cars(commands.Cog, Database):
             await ctx.send("Sorry, no one has said they drive that car!")
             return
 
-        for row in rows:
-            UserID = row[0]
+        def create_embed(user, row):
             carmake = row[1]
             carphoto = row[2]
             carcolor = row[3]
             caryear = row[4]
             carmiles = row[5]
-
-            user = await self.bot.fetch_user(UserID)
             title = ''.join(user.name) + "'s "
             if caryear is not None:
                 caryear = caryear.replace('!carsetup', '')
@@ -386,12 +383,37 @@ class Cars(commands.Cog, Database):
             )
 
             if carphoto is not None:
-                embed.set_thumbnail(url=''.join(carphoto))
+                embed.set_image(url=''.join(carphoto))
 
             if carcolor is not None:
                 embed.add_field(name="Color", value=''.join(carcolor), inline=True)
+            return embed
 
-            await ctx.send(embed = embed)
+        row = rows[0]
+        user = await self.bot.fetch_user(row[0])
+        message = await ctx.send(embed = create_embed(user, row))
+
+        reactions = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟",]
+        if len(reactions) > len(rows):
+            reactions = reactions[:len(rows)]
+
+        results = {}
+        for i, reaction in enumerate(reactions):
+            results[reaction] = rows[i]
+            await message.add_reaction(reaction)
+
+        def check(reaction, user):
+            return str(reaction.emoji) in reactions
+
+        while True:
+            try:
+                reaction, user = await self.bot.wait_for("reaction_add", timeout=60, check=check)
+                row = results[str(reaction.emoji)]
+                await message.edit(embed=create_embed(await self.bot.fetch_user(row[0]), row))
+                await message.remove_reaction(reaction, user)
+
+            except asyncio.TimeoutError:
+                break
 
         cur.close()
         db.close()
