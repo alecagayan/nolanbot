@@ -515,8 +515,9 @@ class Trivia(commands.Cog):
                         emoji = 4
                     elif str(reaction) == emojis[4]:
                         emoji = 5
-                    queue.append((emoji, user.id))    
-                    print("reaction recieved from " + str(user.id))       
+                    if msg.id == reaction.message.id:
+                        queue.append((emoji, user.id))    
+                        print("reaction recieved from " + str(user.id))       
                 except asyncio.TimeoutError:
                     break
 
