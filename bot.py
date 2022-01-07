@@ -317,14 +317,19 @@ async def covid(ctx, type = None, *, location = None):
         await ctx.send(file=discord.File(us_graph))
 
 @client.command()
-async def weather(ctx, a, t = None):
+async def weather(ctx, *a):
+    t = a[len(a) - 1]
+    if t in ['f', 'fahrenheit', 'c', 'celsius']:
+        a = a[:len(a) - 1]
+
+    location = ' '.join(map(str, a))
     comma = ','
     mgr = owm.weather_manager()
 
-    if comma in a:
-        observation = mgr.weather_at_place(a)
+    if comma in location:
+        observation = mgr.weather_at_place(location)
     else:
-        observation = mgr.weather_at_zip_code(a, 'US')
+        observation = mgr.weather_at_zip_code(location, 'US')
 
     weather = observation.weather
     embedColor = 0xFFD414
@@ -342,7 +347,7 @@ async def weather(ctx, a, t = None):
         cf = 'celsius'
         label = ' C'
 
-    embed = discord.Embed(title="Weather in " + a + " right now:", color=embedColor) #embed title with zip
+    embed = discord.Embed(title="Weather in " + location + " right now:", color=embedColor) #embed title with zip
     embed.add_field(name="Temperature :thermometer:", value=str(weather.temperature(cf)['temp']) + label, inline=True) #temperature
     embed.add_field(name="Feels like :snowflake:", value=str(weather.temperature(cf)['feels_like']) + label, inline=True) #temperature
     embed.add_field(name="Conditions :white_sun_rain_cloud:", value=weather.detailed_status, inline=True) #conditions header with emoji conditions
