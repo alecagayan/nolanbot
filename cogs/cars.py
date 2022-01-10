@@ -115,12 +115,17 @@ class Cars(commands.Cog, Database):
 
         if model is not None:
 
-            sqlDel = (f"DELETE FROM cars WHERE Car = ? AND UserID = {userid}")
-            valDel = (model)
+            cur.execute(f"SELECT 1 FROM cars WHERE Car = ? AND UserID = ?", [model, str(userid)])
+            exists = cur.fetchone()
+            if exists:
+                sqlDel = (f"DELETE FROM cars WHERE Car = ? AND UserID = {userid}")
+                valDel = (model)
 
-            await ctx.send('Car removed!')
-            cur.execute(sqlDel, [valDel])
-            db.commit()
+                await ctx.send('Car removed!')
+                cur.execute(sqlDel, [valDel])
+                db.commit()
+            else:
+                await ctx.send("I didn't find that car")
         else:
             await ctx.send("**Please run `!dbhelp` for instructions on how to edit your car!**")
         cur.close()
