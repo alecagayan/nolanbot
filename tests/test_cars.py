@@ -28,5 +28,14 @@ class TestCars(unittest.IsolatedAsyncioTestCase):
         database.query_cars.assert_called_once_with("miata")
         webhook.send.assert_called_once_with("There are 8 cars in the database!")
 
+    @patch('discord.ext.commands.cog')
+    @patch('discord.webhook')
+    @patch('database.Database')
+    async def test_rmcar_no_match(self, cog, webhook, database):
+        webhook.send = AsyncMock()
+        cars = Cars(cog, database)
+        await cars.rmcar(cars, webhook, model = "a model that couldn't possibly exist")
+        webhook.send.assert_called_once_with("I didn't find that car")
+
 if __name__ == '__main__':
     unittest.main()
