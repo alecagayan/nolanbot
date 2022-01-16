@@ -79,6 +79,13 @@ class Fun(commands.Cog):
         await ctx.send(embed=emb)
 
     @commands.command()
+    async def vibecheck(self, ctx):
+        vibe = random.randrange(1, 12)
+        embed = discord.Embed(title=str(vibe))
+        embed.set_image(url='https://cdn.discordapp.com/attachments/731226642990760077/931260254761648168/unknown.png')
+        await ctx.send(embed=embed)
+
+    @commands.command()
     @commands.guild_only()
     async def joined(self, ctx, *, user: discord.Member = None):
         """ Check when a user joined the current server """
