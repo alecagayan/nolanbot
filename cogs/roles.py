@@ -150,7 +150,7 @@ class Reactions(commands.Cog):
             await ctx.send(embed=embed)
 
     @rr.command(name="eject")
-    async def rr_eject(self, ctx, user: discord.Member, role: str):
+    async def rr_eject(self, ctx, user: discord.Member, *, role: str):
         """Ejects a user from a reaction role"""
 
         #get the role
@@ -178,7 +178,7 @@ class Reactions(commands.Cog):
             await ctx.send(f"{user.mention} is now ejected from {role.name}")
 
     @rr.command(name="uneject")
-    async def rr_uneject(self, ctx, user: discord.Member, role: str):
+    async def rr_uneject(self, ctx, user: discord.Member, *, role: str):
         """Unejects a user from a reaction role"""
 
         #get the role
