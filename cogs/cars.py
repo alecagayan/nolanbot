@@ -3,8 +3,10 @@ import asyncio
 from discord.ext import commands
 import sqlite3
 import datetime
+import json
 from os.path import isfile
 from sqlite3 import connect
+
 
 from database import Database
 
@@ -426,7 +428,34 @@ class Cars(commands.Cog, Database):
 
         cur.close()
         db.close()
-        
+
+    @commands.command()
+    async def jsonaddcar(self, ctx):
+
+        DB_PATH = "./data/db/database.db"
+
+        db = connect(DB_PATH, check_same_thread=False)
+        cur = db.cursor()
+        #take in json file as attachment
+        #json has fields ownerid, carmake, year, color, miles, mods, photo
+        #parse json and add car to database
+
+        if ctx.message.attachments:
+            attachment = ctx.message.attachments[0]
+            if attachment.filename.endswith(".json"):
+                with open(attachment.filename, 'r') as f:
+                    data = json.load(f)
+                    #get carmake field from json
+
+                    sql = ("INSERT INTO cars(UserID, Car, Photo, Color, Year, Miles, Mods) VALUES(?,?)")
+                    val = (data['ownerid'], data['carmake'], data['photo'], data['color'], data['year'], data['miles'], data['mods'])
+                    cur.execute(sql, val)
+                    await ctx.send('done')
+
+        cur.close()
+        db.close()
+
+
 def setup(bot):
     database = Database()
     bot.add_cog(Cars(bot, database))
