@@ -77,6 +77,7 @@ class Reactions(commands.Cog):
                         await member.remove_roles(role)
                         break
 
+    
     @commands.group(name="rr", invoke_without_command=True)
     async def rr(self, ctx):
 
@@ -88,7 +89,10 @@ class Reactions(commands.Cog):
         """Adds a reaction role to a message"""
 
         #get the message
-        msg = await ctx.fetch_message(msg)
+        await ctx.send(f"Getting message {msg}...")
+        #get channel with id 
+        channel = self.bot.get_channel(819286169200230412)
+        msg = await channel.fetch_message(msg)
 
         #get the role
         role = discord.utils.get(ctx.guild.roles, name=roleName)
@@ -204,6 +208,8 @@ class Reactions(commands.Cog):
             await ctx.send(f"{user.mention} is now un-ejected from {role.name}")
         else:
             await ctx.send(f"{user.mention} is not ejected from {role.name}")
+
+
 
 
 def setup(bot):
