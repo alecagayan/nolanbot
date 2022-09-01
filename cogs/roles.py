@@ -91,7 +91,7 @@ class Reactions(commands.Cog):
         #get the message
         await ctx.send(f"Getting message {msg}...")
         #get channel with id 
-        channel = self.bot.get_channel(819286169200230412)
+        channel = self.bot.get_channel(731210410614849586)
         msg = await channel.fetch_message(msg)
 
         #get the role
