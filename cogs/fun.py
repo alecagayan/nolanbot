@@ -86,6 +86,10 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    async def beans(self, ctx):
+        await ctx.send('https://images-ext-1.discordapp.net/external/gISGppce9Hal0MCeEwPcTLGI6PSZwBURmmQ-j6-ILR4/https/media.tenor.com/3JJIZJGKQRAAAAPo/banana.mp4')
+
+    @commands.command()
     @commands.guild_only()
     async def joined(self, ctx, *, user: discord.Member = None):
         """ Check when a user joined the current server """
