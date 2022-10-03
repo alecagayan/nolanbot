@@ -87,7 +87,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def beans(self, ctx):
-        await ctx.send('https://images-ext-1.discordapp.net/external/gISGppce9Hal0MCeEwPcTLGI6PSZwBURmmQ-j6-ILR4/https/media.tenor.com/3JJIZJGKQRAAAAPo/banana.mp4')
+        await ctx.send('https://tenor.com/view/banana-suck-vacuum-bj-succ-gif-19336269')
 
     @commands.command()
     @commands.guild_only()
